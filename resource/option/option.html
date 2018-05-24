@@ -1,0 +1,1608 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>オプション</title>
+<link rel="stylesheet" type="text/css" href="../common.css">
+<link rel="stylesheet" type="text/css" href="./option.css">
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../json2.js"></script>
+<script type="text/javascript" src="./data.js"></script>
+<script type="text/javascript" src="./option_common.js"></script>
+<script type="text/javascript" src="./option.js"></script>
+</head>
+
+<body onload="init()" scroll=no>
+<table width="100%" height="100%" vspace="0px" hspace="0px" border="0" cellpadding="0" cellspacing="0" cols="3">
+<tr style="height:2em"><td class="cMenuBk" colspan="3" align="right" valign="middle">
+<form name="findKeyword"><label>オプション設定の検索：<input type="text" onkeypress="doFind(window.event);" name=v style="width:200px;"></label>&nbsp
+<button style="height:1.5em;" onclick="view('find')">検索</button>&nbsp;</form></td></tr>
+<tr style="height:1px"><td colspan="3" class="cLine"></td></tr>
+
+<tr>
+<td id=idCategories class="cCategories cMenuBk" valign=top width=135>
+<a id="recent"     onclick="view('recent')"     href="#" style="display:none;"><img class="cPng" width="16" height="16" src="recent.png"><span>最近変更した項目</span></a>
+<a id="main"       onclick="view('main')"       href="#"><img class="cPng" width="16" height="16" src="main.png"><span>全般</span></a>
+<a id="reg"        onclick="view('reg')"        href="#"><img class="cPng" width="16" height="16" src="reg.png"><span>関連付けの設定</span></a>
+<a id="style"      onclick="view('style')"      href="#"><img class="cPng" width="16" height="16" src="viewStyleSetting.png"><span>画面スタイルの設定</span></a>
+<a id="bookmark"   onclick="view('bookmark')"   href="#"><img class="cPng" width="16" height="16" src="bookmark.png"><span>ブックマークの設定</span></a>
+<a id="tool"       onclick="view('tool')"       href="#"><img class="cPng" width="16" height="16" src="tool.png"><span>ツールの設定</span></a>
+<a id="trident"    onclick="view('trident')"    href="#"><img class="cPng" width="16" height="16" src="trident.png"><span>Tridentの設定</span></a>
+<a id="tab"        onclick="view('tab')"        href="#"><img class="cPng" width="16" height="16" src="tab.png"><span>タブの設定</span></a>
+<a id="urlaction"  onclick="view('urlaction')"  href="#"><img class="cPng" width="16" height="16" src="urlaction.png"><span>URLアクションの設定</span></a>
+<a id="styleSheet" onclick="view('styleSheet')" href="#"><img class="cPng" width="16" height="16" src="styleSheet.png"><span>スタイルシート設定</span></a>
+<a id="toolbar"    onclick="view('toolbar')"    href="#"><img class="cPng" width="16" height="16" src="toolbar.png"><span>ツールバーの設定</span></a>
+<a id="mouse"      onclick="view('mouse')"      href="#"><img class="cPng" width="16" height="16" src="mouse.png"><span>マウス動作の設定</span></a>
+<a id="accel"      onclick="view('accel')"      href="#"><img class="cPng" width="16" height="16" src="accel.png"><span>ショートカットキー</span></a>
+<a id="search"     onclick="view('search')"     href="#"><img class="cPng" width="16" height="16" src="search.png"><span>ウェブ検索の設定</span></a>
+<a id="cache"      onclick="view('cache')"      href="#"><img class="cPng" width="16" height="16" src="cache.png"><span>キャッシュの設定</span></a>
+<a id="script"     onclick="view('script')"     href="#"><img class="cPng" width="16" height="16" src="script.png"><span>スクリプトの設定</span></a>
+<a id="sidebar"    onclick="view('sidebar')"    href="#"><img class="cPng" width="16" height="16" src="sidebar.png"><span>サイドバーの設定</span></a>
+<a id="find"       onclick="view('find')"       href="#"><img class="cPng" width="16" height="16" src="find.png"><span>設定の検索結果</span></a>
+</td>
+<td class=cLine width=1px></td>
+<td valign=top>
+<div id=view>
+	<center>
+	<div id=notFound class=cSetting>
+		<h1><img src="./information.png">設定が見つかりませんでした。</h1>
+	</div>
+	</center>
+	
+	<center>
+	<div id=needKw class=cSetting>
+		<h1><img src="./information.png">検索キーワードがないため、全ての設定を表示します。</h1>
+	</div>
+	</center>
+	
+	<div id=startSetting class="cSetting">
+		<h1 class="cSettingIcon">起動時に開くページ</h1>
+		<form name=start>
+			<label><input type=radio name=v value=3 defaultChecked>前回終了のタブを開く - startLastTab</label><br>
+			<div class=cHelp>前回終了時のタブを全て開きます。前回終了のタブがないときは、新しいタブを開きます(標準設定)。</div>
+			<label><input type=radio name=v value=5>前回終了のタブを開く - startLastTabBlank</label><br>
+			<div class=cHelp>前回終了時のタブを全て開きます。前回終了のタブがないときは、何も開きません。</div>
+			<label><input type=radio name=v value=1>ホームページを開く - startHome</label><br>
+			<div class=cHelp>現在のホームページを開きます。</div>
+			<div class="cHelp cSmallBreak">現在のホームページ設定が Internet Explorer のホームページのとき(既定)、Internet Explorer のホームページを開きます。ホームページがタブリストのとき、タブリストを開きます。</div>
+			<label><input type=radio name=v value=2>空白ページを開く - startBlank</label><br>
+			<div class=cHelp>空白ページ(about:blank)を開きます。</div>
+			<label><input type=radio name=v value=4>何もタブを開かない - startNoTab</label><br>
+			<div class=cHelp>タブを何も開きません。</div>
+		</form>
+	</div>
+
+	<div id=appStyleSetting class=cSetting>
+		<h1>タブ動作スタイル</h1>
+		<div class=cHelpInput>タブのマルチスレッド/プロセス動作を指定します。変更は、次回起動時から有効です。</div>
+		<div class="cHelpInput cSmallBreak">現在のタブ動作スタイル: <span id=idCurrentStyle></span></div>
+		<form name=appStyle class="cSmallBreak">
+			<label><input type=radio name=v value=0>自動選択 - tabProcessThreadAuto</label><br>
+			<div class=cHelp>環境によりマルチスレッド/マルチプロセス動作を決定します(標準設定)。動作は次の通りで決定されます。
+			<li>Internet Explorer 6,7,8: マルチスレッド(ブラウザプロセス生成)<br>
+			<li>Internet Explorer 9以降: マルチプロセス<br>
+			</div>
+			<label><input type=radio name=v value=1>シングルスレッド - tabSingleThread</label><br>
+			<div class=cHelp>全てのタブはシングルスレッドで動作します。</div>
+			<label><input type=radio name=v defaultChecked value=2>マルチスレッド - tabMultiThread</label><br>
+			<div class=cHelp>タブをマルチスレッドで動作させます。</div>
+			<label><input type=radio name=v value=4>マルチスレッド(ブラウザプロセス生成) - tabMultiThread1Process</label><br>
+			<div class=cHelp>UIプロセスとは別にブラウザ用のプロセスを作成し、ブラウザプロセス内でタブをマルチスレッドで動作させます。ただのマルチスレッドに比べ、UIプロセスとブラウザプロセスを分けることで、タブを全て閉じたとき、メモリが全て開放される利点があります。</div>
+			<label><input type=radio name=v value=3>マルチプロセス - tabMultiProcess</label><br>
+			<div class=cHelp>タブをマルチプロセスで動作させます。マルチプロセスは、タブグループ機能をonにしての使用を推奨します。同じタブグループ内ではセッションが継続します。違うタブループ、または、タブグループが無効のとき、タブはそれぞれ別セッションとなります。</div>
+		</form>
+		<form name=tabGroup class="cSmallBreak">
+			<label><input type="checkbox" name=v>タブグループ - tabGroup</label><br>
+			<div class=cHelpInput>タブグループを有効にします(標準設定:on)。ホイールクリック、または、ナビゲートロックからタブを開いたとき、同じタブグループになります。変更は、次回起動時から有効です。</div>
+		</form>
+	</div>
+
+	<div id=loadingStyleSetting class=cSetting>
+		<h1>タブ読み込みスタイル</h1>
+		<div class=cHelpInput>複数タブの読み込み動作を指定します。変更は、次回起動時から有効です。シングルスレッド、または、スクリプトで作成したタブには無効です。</div>
+		<div class="cHelpInput cSmallBreak">現在の設定: <span id=idCurrentLoadingStyle></span></div>
+		<form name=loadingStyle class="cSmallBreak">
+			<label><input type=radio name=v value=0 defaultChecked>負荷が少ない遅延読み込み - loadingSmart</label><br>
+			<div class=cHelp>１つのタブが読み込み完了後、次のタブを読み込みます(標準設定)。読み込まれていないタブをアクティブにしたときは、即座に読み込まれます。</div>
+			<label><input type=radio name=v defaultChecked value=1>アクティブ時読み込み - loadingActive</label><br>
+			<div class=cHelp>タブをアクティブにしたとき、ページを読み込みます。</div>
+			<label><input type=radio name=v value=3>遅延読み込みなし -loadingAll</label><br>
+			<div class=cHelp>遅延読み込みせず、タブは作成時、即座に読み込まれます。</div>
+		</form>
+		<form name=loadDelay class="cSmallBreak">
+			<label><input type="text" name=v maxlength=4 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);">秒間隔で読み込む - loadDelay</label>
+			<div class=cHelpInput>遅延読み込み(loadingSmart)でのタブの読み込み間隔を指定します(既定5秒)。タブの読み込みがこの間隔で終わらなければ次のタブを読み込みます。</div>
+		</form>
+		<form name=maxTabLoad>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);">タブまで読み込む - maxTabLoad</label>
+			<div class=cHelpInput>遅延読み込み(loadingSmart)でのタブ読み込み最大数を指定します。3を指定し10タブを一度に開いた場合、3タブ毎読み込みが行われます。</div>
+		</form>
+	</div>
+
+	<div id=assocSetting class=cSetting>
+		<h1>アプリケーション関連付け<span> - registerApplication</span></h1>
+		<div class="cHelpInput">アプリケーションの関連付けを行います。<span id="idNewSystem">Vista,7は、管理者権限が必要です。</span></div>
+		<div id=idIsAssoc   style="display:none;" class="cHelpInput cSmallBreak">&nbsp;&nbsp;現在の設定: <img src="assoc.png"><span>アプリケーションは、関連付けられています。</span></div>
+		<div id=idIsNoAssoc style="display:none;" class="cHelpInput cSmallBreak">&nbsp;&nbsp;現在の設定: <img src="sinfo.png"><span>アプリケーションは、関連付けられていません。</span></div>
+		<div id=idSelectBrowserUI>
+		<div class="cHelpInput cSmallBreak">既定のブラウザを選択します。<br>
+		<button id="btnSelectBrowser" style="width:17em;" onclick="selectBrowserUI()"><img src="external.png">&nbsp既定のブラウザ選択画面を開く</button>
+		</div></div>
+		<div id=idAssocNew class="cHelpInput"><br>アプリケーションの関連付けをレジストリに設定します。レジストリに設定した後、「既定のブラウザ選択画面」から、アプリケーションを選択してください。アプリケーションを削除するとき、レジストリから削除することを推奨します。</div>
+		<div id=idAssocOld class="cHelpInput cSmallBreak" style="display:none;">レジストリに登録すると、アプリケーションは関連付けされます。レジストリから削除すると、関連付けを解除します。アプリケーションを削除するとき、レジストリから削除を行い、関連付けを解除することを推奨します。</div>
+		<div class="cHelpInput cSmallBreak" style="display:none;" id=idDisableUnregApp><img src="sinfo.png"><span class=cCaption> 関連付けられているため、レジストリからの削除が出来ません。レジストリ削除を行うには、関連付けを別のアプリケーションにする必要があります。</span></div>
+		<div class="cHelpInput"><button id="btnRegApp" style="width:13em;" onclick="regApp(true)"><img src="shield.png">&nbsp;レジストリに登録...</button><button id="btnUnregApp" style="width:13em;margin-left:15px;" onclick="regApp(false)"><img src="shield.png">&nbsp;レジストリから削除...</button></div>
+	</div>
+
+	<div id=freezeCheckSetting class=cSetting>
+		<h1>応答なしページの検出</h1>
+		<form name=freezeCheck class="cSmallBreak">
+			<label><input type="checkbox" name=v>応答なしページを検出する - freezeCheck</label><br>
+			<div class=cHelp>応答なしページを検出すると、ウインドウを表示し通知します(既定:on)。通知ウインドウからページの強制終了が可能です。応答なしページの検出は、シングルスレッド以外で動作します。</div>
+		</form>
+		<form name=freezeCheckElapse class="cSmallBreak">
+			<label><input type="text" name=v maxlength=4 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);">秒間隔でチェックする - freezeCheckElapse</label>
+			<div class=cHelpInput>応答なしページの検出間隔を指定します(既定10秒)。</div>
+		</form>
+	</div>
+
+	<div id=menuSetting class=cSetting>
+		<h1>メニュースタイル</h1>
+		<div class=cHelpInput>ブラウザのメニュースタイルを指定します。</div>
+		<form name=legacyMenu class="cSmallBreak">
+			<label><input type="checkbox" name=v>ブラウザで旧メニューを使用する - legacyMenu</label><br>
+			<div class=cHelp>ブラウザで操作性の高いメニューではなく、従来のメニューを使用します(既定:off)。</div>
+		</form>
+	</div>
+	
+	<div id=viewStyleSetting class=cSetting>
+		<h1>画面スタイル</h1>
+		<div class=cHelpInput>画面スタイルを指定します。変更は、次回起動時から有効です。</div>
+		<div class="cHelpInput cSmallBreak">現在の設定: <span id=currentViewStyle></span></div>
+		<form name=viewStyle class="cSmallBreak">
+			<label><input type=radio name=v value=0>旧スタイル - oldStyle</label><br>
+			<div class=cHelp>旧タブブラウザスタイルです。</div>
+			<label><input type=radio name=v value=1>Internet Explorerスタイル - ieStyle</label><br>
+			<div class=cHelp>Internet Explorer9に似たスタイルです。アドレスバー・タブバー・検索バーが上部表示となります。上部のツールバーは、Aeroが有効な場合は、Aero表示になります。</div>
+		</form>
+	</div>
+
+	<div id=instanceSetting class=cSetting>
+		<h1>複数起動設定</h1>
+		<form name=singleInstance>
+			<label><input type="checkbox" name=v>起動は１つのみとする - singleInstance</label><br>
+			<div class=cHelpInput>チェックすると、アプリケーションは複数起動せず、単一起動となります(標準設定:off)。</div>
+		</form>
+		<form name=singleInstanceStartEnable>
+			<label><input type="checkbox" name=v>単一起動で起動時のページを開く - singleInstanceStartEnable</label>
+			<div class="cHelpInput">この項目は、起動が一つのみ(singleInstanceがon)のとき、効果がある設定です。</div>
+			<div class="cHelpInput cSmallBreak">この項目をチェックすると、外部から起動されたとき、起動時に開くページも一緒に開きます(標準設定:on)。チェックしなかった場合は、外部から起動されたURLのみ開きます。</div>
+		</form>
+	</div>
+
+	<div id=homeSetting class="cSetting">
+		<h1 class="cSettingIcon">ホームページ</h1>
+		<div class=cHelpInput>使用するホームページを設定します。ホームページには、Internet Explorer のホームページ、タブリストが選択できます。</div>
+		<form name=home>
+			<label>ホームページの選択: <select name=v style="width:50%;">
+				<option defaultChecked value="">Internet Explorer のホームページ
+				</select> - home</label>
+		</form>
+	</div>
+
+	<div id=bookmarkSetting class=cSetting>
+		<h1>ブックマークの設定</h1>
+		<div class=cHelpInput>使用するブックマークの設定を行います。ブックマークの設定は、「適用ボタン」を押さなくても反映されます。既定のブックマークは削除できません。
+		既定のブックマーク内容が、コマンドバーのお気に入り内容となります。</div>
+		<div id=bookmarkView class="cSettingView cSmallBreak"></div>
+	</div>
+
+	<div id=addBookmarkSetting class=cSetting>
+		<h1>ブックマークの追加</h1>
+		<div class=cHelpInput>使用するブックマークを追加します。追加したブックマークは、サイドバー、ツールバーで表示できるようになります。</div>
+		<table vspace=0px hspace=0px border=0 cellpadding=0 cellspacing=0 class="cSettingView">
+			<tr>
+				<td width=210px><b class="cComponent32" style="background-image:url(../{FE7CA294-866D-4fcc-8DEB-9B01639919F7}/icon32.png);">Internet Explorer お気に入り</b></td>
+				<td><button style="width=10em;" onclick="addBookmark('{FE7CA294-866D-4fcc-8DEB-9B01639919F7}');"><img src="+.png">&nbsp;ブックマーク追加</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class="cHelpBookmark cSmallBottomMargin">Internet Explorer形式のお気に入りを使用します。設定で任意のフォルダを指定できます。</div><td>
+			</tr>
+			<tr>
+				<td width=210px><b class="cComponent32" style="background-image:url(../{08249311-31A6-48e9-BB5F-9B0E01590EF4}/icon32.png);">Google Chrome ブックマーク</b></td>
+				<td><button style="width=10em;" onclick="addBookmark('{08249311-31A6-48e9-BB5F-9B0E01590EF4}');"><img src="+.png">&nbsp;ブックマーク追加</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class="cHelpBookmark cSmallBottomMargin">Google Chrome ブックマークを使用します。設定で任意のブックマークファイルを指定できます。</div><td>
+			</tr>
+			
+			<tr>
+				<td width=210px><b class="cComponent32" style="background-image:url(../{640BD265-004D-4213-947F-5E86818556A3}/icon32.png);">Firefox ブックマーク</b></td>
+				<td><button style="width=10em;" onclick="addBookmark('{640BD265-004D-4213-947F-5E86818556A3}');"><img src="+.png">&nbsp;ブックマーク追加</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class="cHelpBookmark cSmallBottomMargin">Firefox ブックマークを使用します。設定で任意のブックマークファイルを指定できます。</div><td>
+			</tr>
+			
+			<tr>
+				<td width=210px><b class="cComponent32" style="background-image:url(../{83A890F3-7C41-43FF-8BE9-08CB7399606D}/icon32.png);">Opera ブックマーク</b></td>
+				<td><button style="width=10em;" onclick="addBookmark('{83A890F3-7C41-43FF-8BE9-08CB7399606D}');"><img src="+.png">&nbsp;ブックマーク追加</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class="cHelpBookmark cSmallBottomMargin">Opera ブックマークを使用します。設定で任意のブックマークファイルを指定できます。</div><td>
+			</tr>
+			<tr>
+				<td width=210px><b class="cComponent32" style="background-image:url(../{592EA32D-AA1A-4b4f-AAF1-2C5E393BDFFA}/icon32.png);">タブリスト</b></td>
+				<td><button style="width=10em;" onclick="addBookmark('{592EA32D-AA1A-4b4f-AAF1-2C5E393BDFFA}');"><img src="+.png">&nbsp;ブックマーク追加</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class="cHelpBookmark cSmallBottomMargin">アプリケーションで保存したタブリストを表示します。</div><td>
+			</tr>
+		</table>
+	</div>
+	
+	<div id=toolSetting class=cSetting>
+		<h1>ツールの設定</h1>
+		<div class=cHelpInput>使用しているツールの設定を行います。ツールの設定は、「適用ボタン」を押さなくても反映されます。</div>
+		<div id=toolView class="cSettingView cSmallBreak"></div>
+	</div>
+
+	<div id=addToolSetting class=cSetting>
+		<h1>ツールの追加</h1>
+		<div class=cHelpInput>使用するツールを追加します。ツールは、サイドバー・ツールバーに表示されます。</div>
+		<table vspace=0px hspace=0px border=0 cellpadding=0 cellspacing=0 class="cSettingView">
+			<tr>
+				<td width=210px><b class="cComponent32" style="background-image:url(../{D8730075-FE38-4C61-8EEE-7037A5F0E42A}/icon32.png);">Internet Explorer 表示履歴</b></td>
+				<td><button style="width=10em;" onclick="addTool('{D8730075-FE38-4C61-8EEE-7037A5F0E42A}');"><img src="+.png">&nbsp;ツール追加</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class="cHelpBookmark cSmallBottomMargin">Internet Explorerの表示履歴を表示します。</div><td>
+			</tr>
+			<tr>
+				<td width=210px><b class="cComponent32" style="background-image:url(../{68D93D97-31CA-4220-A7E5-4B549455B3E7}/icon32.png);">リンク抽出ツール</b></td>
+				<td><button style="width=10em;" onclick="addTool('{68D93D97-31CA-4220-A7E5-4B549455B3E7}');"><img src="+.png">&nbsp;ツール追加</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class="cHelpBookmark cSmallBottomMargin">アクティブなページから様々な条件でリンクを抽出します。</div><td>
+			</tr>
+		</table>
+	</div>
+
+	<div id=dropActionSetting class=cSetting>
+		<h1>ドロップアクション</h1>
+		<div class=cHelpInput>
+		<button id=dropActionButton style="width:9em;" onclick="dropActionSetting();"><img class="cPng" src="mouse--pencil.png"> ボタン設定...</button><br>
+		ドロップアクションで表示されるボタン、ボタンサイズを変更します。</div>
+		<form name=dropAction>
+			<label><input type="checkbox" name=v>ドロップアクション - dropAction</label><br>
+			<div class=cHelpInput>リンクやテキストをドラッグすると、さまざまな動作を実行できるボタンを表示します(標準設定:on)。</div>
+		</form>
+	</div>
+
+	<div id=superDragDropSetting class=cSetting>
+		<h1>スーパードラッグ＆ドロップ</h1>
+		<div class=cHelpInput>
+		<img src="superdd.png" style="float:left;">
+		ブラウザ上でリンクやテキストをドラッグしたとき、ドロップした方向により、さまざまな動作を実行します。方向には、上(Up)、下(Down)、左(Left)、右(Right)動作を指定できます。また、Shiftキー、Ctrlキーを押しながらの動作も指定できます。<br><br>
+		<button class="cSetDefault" id="superDragDropSetDefault"><span>標準設定に戻す</span></button><br>スーパードラッグ＆ドロップ動作を標準設定に戻します。
+		<div class="cSmallBreak" style="clear:both"></div>
+		</div>
+		
+		<div class=cHelpInput>
+		<span class="cDropCmd"><img src="up.png"><img src="link.png">Up(上方向) Link</span><span class="cDropCmd"><img src="text.png">Up(上方向) Text</span><br>
+		<span class="cDropCmd"><form name=dropUpLink            class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ</label></form></span>
+		<span class="cDropCmd"><form name=dropUpText            class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ</label></form></span><br>
+		<span class="cDropCmd"><form name=dropShiftUpLink       class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift</label></form></span>
+		<span class="cDropCmd"><form name=dropShiftUpText       class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift</label></form></span><br>
+		<span class="cDropCmd"><form name=dropCtrlUpLink        class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Ctrl</label></form></span>
+		<span class="cDropCmd"><form name=dropCtrlUpText        class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Ctrl</label></form></span><br>
+		<span class="cDropCmd"><form name=dropShiftCtrlUpLink   class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift+Ctrl</label></form></span>
+		<span class="cDropCmd"><form name=dropShiftCtrlUpText   class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift+Ctrl</label></form></span><br>
+
+		<div id="superddLink" class="cSmallBreak"></div>
+		<span class="cDropCmd"><img src="down.png"><img src="link.png">Down(下方向) Link</span><span class="cDropCmd"><img src="text.png">Down(下方向) Text</span><br>
+		<span class="cDropCmd"><form name=dropDownLink          class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ</label></form></span>
+		<span class="cDropCmd"><form name=dropDownText          class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ</label></form></span><br>
+		<span class="cDropCmd"><form name=dropShiftDownLink     class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift</label></form></span>
+		<span class="cDropCmd"><form name=dropShiftDownText     class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift</label></form></span><br>
+		<span class="cDropCmd"><form name=dropCtrlDownLink      class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Ctrl</label></form></span>
+		<span class="cDropCmd"><form name=dropCtrlDownText      class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Ctrl</label></form></span><br>
+		<span class="cDropCmd"><form name=dropShiftCtrlDownLink class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift+Ctrl</label></form></span>
+		<span class="cDropCmd"><form name=dropShiftCtrlDownText class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift+Ctrl</label></form></span><br>
+
+		<div id="superddLink" class="cSmallBreak"></div>
+		<span class="cDropCmd"><img src="left.png"><img src="link.png">Left(左方向) Link</span><span class="cDropCmd"><img src="text.png">Left(左方向) Text</span><br>
+		<span class="cDropCmd"><form name=dropLeftLink          class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ</label></form></span>
+		<span class="cDropCmd"><form name=dropLeftText          class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ</label></form></span><br>
+		<span class="cDropCmd"><form name=dropShiftLeftLink     class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift</label></form></span>
+		<span class="cDropCmd"><form name=dropShiftLeftText     class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift</label></form></span><br>
+		<span class="cDropCmd"><form name=dropCtrlLeftLink      class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Ctrl</label></form></span>
+		<span class="cDropCmd"><form name=dropCtrlLeftText      class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Ctrl</label></form></span><br>
+		<span class="cDropCmd"><form name=dropShiftCtrlLeftLink class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift+Ctrl</label></form></span>
+		<span class="cDropCmd"><form name=dropShiftCtrlLeftText class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift+Ctrl</label></form></span><br>
+
+		<div id="superddLink" class="cSmallBreak"></div>
+		<span class="cDropCmd"><img src="right.png"><img src="link.png">Right(右方向) Link</span><span class="cDropCmd"><img src="text.png">Right(右方向) Text</span><br>
+		<span class="cDropCmd"><form name=dropRightLink          class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ</label></form></span>
+		<span class="cDropCmd"><form name=dropRightText          class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ</label></form></span><br>
+		<span class="cDropCmd"><form name=dropShiftRightLink     class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift</label></form></span>
+		<span class="cDropCmd"><form name=dropShiftRightText     class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift</label></form></span><br>
+		<span class="cDropCmd"><form name=dropCtrlRightLink      class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Ctrl</label></form></span>
+		<span class="cDropCmd"><form name=dropCtrlRightText      class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Ctrl</label></form></span><br>
+		<span class="cDropCmd"><form name=dropShiftCtrlRightLink class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift+Ctrl</label></form></span>
+		<span class="cDropCmd"><form name=dropShiftCtrlRightText class=cDummy><label><select name=v class=cSelectCmd></select>:ドロップ+Shift+Ctrl</label></form></span><br>
+		</div>
+		
+		<form name=superDragDrop class="cSmallBreak">
+			<label><input type="checkbox" name=v>スーパードラッグ＆ドロップ - superDragDrop</label><br>
+			<div class=cHelpInput>スーパードラッグ＆ドロップを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=superDragDropForm>
+			<label><input type="checkbox" name=v>フォームでのスーパードラッグ＆ドロップを有効にする - superDragDropForm</label><br>
+			<div class=cHelpInput>テキスト入力などフォームでのスーパードラッグ＆ドロップを有効にします(標準設定:off)。</div>
+		</form>
+	</div>
+
+	<div id=mouseGestureSetting class=cSetting>
+		<h1>マウスジェスチャ</h1>
+		<form name=mouseGesture>
+			<label><input type=radio name=v value=0>マウスジェスチャ無効 - mouseGestureDisable</label><br>
+			<div class=cHelp>マウスジェスチャ機能を無効にします。</div>
+			<label><input type=radio name=v defaultChecked value=1>ボタン型マウスジェスチャ - mouseGestureButton</label><br>
+			<div class=cHelp>マウスの右ボタンを押しながらマウスを動かすと、さまざまな動作を実行できるボタンを表示します(標準設定)。実行したいボタンでマウスの右を放すと、ボタンの処理が実行されます。動かす上下左右方向で、表示されるボタンが異なります。</div>
+			<button class="cHelp" style="width:9em;color:blue;" onclick="mouseGestureSetting(0);"><img src=mouse--pencil.png> ボタン設定...</button>
+			<div class=cHelp>ボタン型マウスジェスチャで表示されるボタン、ボタンサイズを変更します。</div>
+			<label><input type=radio name=v value=2>カーソル型マウスジェスチャ - mouseGestureCursor</label><br>
+			<div class=cHelp>マウスの右ボタンを押しながらマウスを動かしたとき、動かした方向によりさまざまな動作を実行します。</div>
+			<button class="cHelp" style="width:9em;color:blue;" onclick="mouseGestureSetting(1);"><img src=mouse--pencil.png> 動作設定...</button>
+			<div class=cHelp>カーソル型マウスジェスチャのジェスチャ、コマンド動作を設定します。</div>
+		</form>
+		<form name=mouseGestureLimit class="cSmallBreak">
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> pixel - mouseGestureLimit</label>
+			<div class=cHelpInput>ボタン型マウスジェスチャが表示されるまでのマウス移動距離、または、カーソル型マウスジェスチャが機能するまでのマウス移動距離を指定します(標準設定:4)。</div>
+		</form>
+	</div>
+
+	<div id=mousePlusSetting class=cSetting>
+		<h1>マウス動作補助</h1>
+		<form name=wheelRedirect>
+			<label><input type="checkbox" name=v><img src="windows8.png">8.1 or Earlier: ホイールリダイレクト - wheelRedirect</label><br>
+			<div class=cHelpInput>フォーカスがなくてもマウスホイールを可能にします(標準設定:on)。Windows 8.1未満で有効です。Windows 10の場合、OSの機能により設定に関係なくホイールリダイレクトが動作します。</div>
+		</form>
+		<form name=hwheelRedirect>
+			<label><input type="checkbox" name=v>水平ホイールリダイレクト - hwheelRedirect</label><br>
+			<div class=cHelpInput>フォーカスがなくても水平マウスホイールを可能にします(標準設定:off)。変更した場合、次回起動時から有効です。</div>
+		</form>
+	</div>
+
+	<div id=pageSetting class=cSetting>
+		<h1>ページの制御</h1>
+		<form name=autoTextLink>
+			<label><input type="checkbox" name=v>オートテキストリンク - autoTextLink</label><br>
+			<div class=cHelp>リンクになっていないURLやURLらしいテキストを自動的にリンクにします(標準設定:on)。</div>
+		</form>
+		<form name=autoTextLinkDialog>
+			<label><input type="checkbox" name=v>テキストリンクを開くとき確認ダイログを表示 - autoTextLinkDialog</label><br>
+			<div class=cHelp>オートテキストリンクを開くとき、確認ダイログを表示します(標準設定:on)。</div>
+		</form>
+		<form name=autoImageResize>
+			<label><input type="checkbox" name=v>オートイメージリサイズ - autoImageResize</label><br>
+			<div class=cHelp>大きな画像をウインドウ内に収まるよう自動縮小します(標準設定:on)。</div>
+		</form>
+		<form name=favicon>
+			<label><input type="checkbox" name=v>Faviconの取得 - favicon</label><br>
+			<div class=cHelp>Favicon(Favorite icon)を取得します(標準設定:on)。</div>
+		</form>
+		<form name=thumbnail>
+			<label><input type="checkbox" name=v>サムネイルの取得 - thumbnail</label><br>
+			<div class=cHelp>訪れたページのサムネイルを取得します(標準設定:on)。</div>
+		</form>
+		<form name=feed>
+			<label><input type="checkbox" name=v>フィードの検出 - feed</label><br>
+			<div class=cHelp>ページのフィードを検出します(標準設定:on)。offにすると、ツールバーのフィードボタンが常に無効表示となります。</div>
+		</form>
+	</div>
+
+	<div id=imagePanningSetting class=cSetting>
+		<h1>イメージパンニング</h1>
+		<div class=cHelpInput>イメージパンニングの有効無効を設定します。イメージパンニングは、画像のみのページで機能します。画像のみのページで、画像がページに収まらないとき、マウスボタンを押したままマウスを動かすとスクロールできます。</div>
+		<form name=imagePanning class="cSmallBreak">
+			<label><input type=radio name=v value=0>無効にする - noImagePanning</label><br>
+			<div class=cHelp>イメージパンニングを無効にします。</div>
+			<label><input type=radio name=v value=1>有効にする - imagePanning</label><br>
+			<div class=cHelp>イメージパンニングを有効にします。</div>
+			<label><input type=radio name=v value=2>Ctrlキー+で有効にする - imagePanningWithCtrl</label><br>
+			<div class=cHelp>Ctrlキー押しで有効にします。</div>
+			<label><input type=radio name=v value=3>Shiftキー+で有効にする - imagePanningWithShift</label><br>
+			<div class=cHelp>Shiftキー押しで有効にします。</div>
+			<label><input type=radio name=v value=4>Ctrl+Shiftで有効にする - imagePanningWithCtrlShift</label><br>
+			<div class=cHelp>CtrlとShiftキー押しで、有効にします。</div>
+		</form>
+	</div>
+
+	<div id=jumpListSetting class=cSetting>
+		<h1>ジャンプリスト</h1>
+		<div class=cHelpInput>
+		<button id=jumpListButton style="width:12em;" onclick="jumpListSetting();"><img src=jumpListSetting.png> ジャンプリスト設定...</button><br>
+		ジャンプリストのアイテムを変更します。変更した場合、次回の初回起動時から有効です。</div>
+		<form name=jumpList>
+			<label><input type="checkbox" name=v onClick="toggleEnable(this,'jumpListButton');"><img src="windows7.png">7 or later: ジャンプリストを使用する - jumpList</label><br>
+			<div class=cHelp>ジャンプリストを使用します(標準設定:on)。Windows7で有効な設定です。</div>
+		</form>
+	</div>
+
+	<div id=taskBarSetting class=cSetting>
+		<h1>タスクバー</h1>
+		<form name=taskbarThumbnail>
+			<label><input type="checkbox" name=v><img src="windows7.png">7 or later: タブ毎にサムネイルを表示 - taskbarThumbnail</label><br>
+			<div class=cHelp>タスクバーにタブ毎にサムネイルを表示します(標準設定:on)。Windows7で有効な設定です。変更した場合、次回起動時から有効です。</div>
+		</form>
+		<form name=taskbarProgress>
+			<label><input type="checkbox" name=v><img src="windows7.png">7 or later: タスクバーに進行状況を表示 - taskbarProgress</label><br>
+			<div class=cHelp>タスクバーに進行状況を表示します(標準設定:off)。Windows7で有効な設定です。変更した場合、次回起動時から有効です。</div>
+		</form>
+	</div>
+
+	<div id=confirmSetting class=cSetting>
+		<h1>確認メッセージ・タスクトレイ・IME</h1>
+		<form name=confirmExit>
+			<label><input type="checkbox" name=v>アプリケーション終了の確認 - confirmExit</label><br>
+			<div class=cHelp>アプリケーション終了時、終了するか確認メッセージを表示します(標準設定:off)。</div>
+		</form>
+		<form name=checkDownloading>
+			<label><input type="checkbox" name=v>ダウンロード中の確認 - checkDownloading</label><br>
+			<div class=cHelp>アプリケーション終了時、ファイルのダウンロード中かを確認します(標準設定:off)。onのときでダウンロード中だった場合、終了確認画面が表示されます。ダウンロード中にアプリケーションを終了しても、ダウンロードは継続します。</div>
+		</form>
+		<form name=tasktray>
+			<label><input type="checkbox" name=v>タスクトレイに格納 - tasktray</label><br>
+			<div class=cHelp>アプリケーション終了時、終了せず、タスクトレイに格納します(標準設定:off)。アプリケーションが表示されるか、タスクトレイアイコンをクリックすると、タスクトレイから取り出されます。</div>
+		</form>
+		<form name=minimizeTasktray>
+			<label><input type="checkbox" name=v>最小化でタスクトレイに格納 - minimizeTasktray</label><br>
+			<div class=cHelp>アプリケーション最小化でタスクトレイに格納します(標準設定:off)。アプリケーションが表示されるか、タスクトレイアイコンをクリックすると、タスクトレイから取り出されます。アプリケーション終了時はタスクトレイに格納せず、終了します。</div>
+		</form>
+		<form name=confirmCloseAnyTab>
+			<label><input type="checkbox" name=v>複数タブクローズの確認 - confirmCloseAnyTab</label><br>
+			<div class=cHelp>全てのタブを閉じる、左右のタブを閉じる、これ以外のタブを閉じる、タブグループを閉じるなどで、複数タブが閉じられるとき、確認メッセージを表示します(標準設定:off)。</div>
+		</form>
+		<form name=syncImeState>
+			<label><input type="checkbox" name=v>IME状態の同期 - syncImeState</label><br>
+			<div class=cHelp>マルチスレッド・プロセスのとき、各スレッド・プロセスでIME状態を同期します(標準設定:on)。変更した場合、次回起動時から有効です。IMEによっては状態の同期に失敗します。その時は、無効にすると誤動作を防げます。</div>
+		</form>
+	</div>
+
+	<div id=exitSetting class=cSetting>
+		<h1>アプリケーション終了後のデータ削除</h1>
+		<form name=deleteCacheOnClose>
+			<label><input type="checkbox" name=v>インターネット一時ファイルの削除 - deleteCacheOnClose</label><br>
+			<div class=cHelp>アプリケーション終了後、インターネット一時ファイルを削除します(標準設定:off)。</div>
+		</form>
+		<form name=deleteCookieOnClose>
+			<label><input type="checkbox" name=v>Cookieの削除 - deleteCookieOnClose</label><br>
+			<div class=cHelp>アプリケーション終了後、Cookieを削除します(標準設定:off)。</div>
+		</form>
+		<form name=deleteHistoryOnClose>
+			<label><input type="checkbox" name=v>訪問履歴の削除 - deleteHistoryOnClose</label><br>
+			<div class=cHelp>アプリケーション終了後、ページの訪問履歴を削除します(標準設定:off)。訪問履歴を削除する場合、ある程度時間がかかります。</div>
+		</form>
+		<form name=deleteFormDataOnClose>
+			<label><input type="checkbox" name=v><img class="cPng" src="ie7.png">7 or later: フォームデータの削除 - deleteFormDataOnClose</label><br>
+			<div class=cHelp>アプリケーション終了後、フォームに入力して保存された情報を削除します(標準設定:off)。Internet Explorer 7以降で有効です。</div>
+		</form>
+		<form name=deletePasswordsOnClose>
+			<label><input type="checkbox" name=v><img class="cPng" src="ie7.png">7 or later: パスワードの削除 - deletePasswordsOnClose</label><br>
+			<div class=cHelp>アプリケーション終了後、以前ログオンしたWebサイトへ再度ログオンするときに自動入力されるパスワードを削除します(標準設定:off)。Internet Explorer 7以降で有効です。</div>
+		</form>
+		<form name=deleteSearchHistoryOnClose>
+			<label><input type="checkbox" name=v>検索履歴の削除 - deleteSearchHistoryOnClose</label><br>
+			<div class=cHelp>アプリケーション終了後、検索履歴・インライン検索履歴を削除します(標準設定:off)。</div>
+		</form>
+		<form name=deleteAddressHistoryOnClose>
+			<label><input type="checkbox" name=v>アドレス履歴の削除 - deleteAddressHistoryOnClose</label><br>
+			<div class=cHelp>アプリケーション終了後、アドレス履歴を削除します(標準設定:off)。</div>
+		</form>		<form name=deleteLastTabOnClose>
+			<label><input type="checkbox" name=v>前回終了時のタブの削除 - deleteLastTabOnClose</label><br>
+			<div class=cHelp>アプリケーション終了後、前回・前々回終了時のタブを削除します(標準設定:off)。</div>
+		</form>
+	</div>
+
+	<div id=memorySetting class=cSetting>
+		<h1>メモリ設定</h1>
+		<form name=DEP>
+			<label><input type="checkbox" name=v>メモリ保護機能 - DEP</label><br>
+			<div class=cHelp>メモリ保護機能(DEP:Data Execute Prevention)を有効にします(標準設定:on)。無効のとき、OSの設定に従います。変更した場合、次回起動時から有効です。</div>
+		</form>
+		<form name=emptyWorkingSet>
+			<label><input type="checkbox" name=v>ワーキングセットメモリ開放 - emptyWorkingSet</label><br>
+			<div class=cHelp>ワーキングセットメモリをアプリケーション最小化時に開放します(標準設定:off)。</div>
+		</form>
+	</div>
+
+	<div id=crashSetting class=cSetting>
+		<h1>クラッシュ設定</h1>
+		<form name=crashFile>
+			<label><input type="checkbox" name=v>クラッシュ情報ファイルの作成 - crashFile</label><br>
+			<div class=cHelp>アプリケーションがクラッシュしたとき、クラッシュ情報ファイルをTMPディレクトリに作成します(標準設定:on)。onのときabout:crashにクラッシュ情報が表示されます。変更した場合、次回起動時から有効です。</div>
+		</form>
+		<form name=deleteOldCrashFile>
+			<label><input type="checkbox" name=v>古いクラッシュ情報ファイルの削除 - deleteOldCrashFile</label><br>
+			<div class=cHelp>アプリケーション終了時、１週間以上経過したクラッシュ情報ファイルを自動的に削除します(標準設定:on)。</div>
+		</form>
+	</div>
+	
+	<div id=newUrlSetting class=cSetting>
+		<h1>新規タブのURL</h1>
+		<div class=cHelpInput>新しいタブを開くときのURLを指定します。cmd:newで開くときのURLに相当します。</div>
+		<form name=newUrl>
+			<label><input type="text" onKeydown="return inputUrl(event.keyCode);" name=v style="height:22px;width:60%;"> - newUrl</label>
+		</form>
+		<div class=cHelpInput>
+		<button style="width:7em;" onclick="javascript:document.newUrl.v.value='about:tabs';"><img src=arrow_return.png> 標準設定</button>
+		<button style="width:8em;" onclick="javascript:document.newUrl.v.value='about:blank';"><img src=style.png> 空白を使用</button>
+		<button style="width:9em;" onclick="javascript:setHomeUrl(document.newUrl.v);"><img src=home.png> ホームを設定</button>
+		</div>
+	</div>
+	
+	<div id=maxTabSetting class=cSetting>
+		<h1>タブの最大数設定</h1>
+		<form name=maxTab>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> タブ - maxTab</label>
+			<div class=cHelpInput>タブの最大数を指定します。タブの最大数に達すると、新規タブは作成されません。0を指定すると、タブ数は無制限になります。</div>
+		</form>
+	</div>
+	
+	<div id=tabStyleSetting class=cSetting>
+		<h1>タブバーのスタイル</h1>
+		<form name=tabStyle>
+			<label><input type=radio name=v defaultChecked value=0>マルチライン表示 - tabStyleMultiLine</label><br>
+			<div class=cHelp>タブを複数行表示します(標準設定)。タブの幅は、tabWidthで指定します。</div>
+			<label><input type=radio name=v value=1>シングルライン表示 - tabStyleSingleLine</label><br>
+			<div class=cHelp>タブを単一行表示します。タブの幅は、tabWidthで指定します。</div>
+			<label><input type=radio name=v value=2>自動縮小シングルライン表示 - tabStyleAutoSingleLine</label><br>
+			<div class=cHelp>タブを自動縮小し、単一行表示します。タブの幅は、tabAutoMinWidthとtabAutoMaxWidthで指定します。</div>
+		</form>
+		<form name=tabIcon>
+			<label><input type="checkbox" name=v>タブにアイコンを表示する - tabIcon</label><br>
+			<div class=cHelpInput>タブにアイコンを表示します(標準設定:on)。</div>
+		</form>
+	</div>
+	
+	<div id=tabWidthSetting class=cSetting>
+		<h1>タブ幅の指定(シングル・マルチライン)</h1>
+		<form name=tabWidth>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> pixel(固定タブ幅) - tabWidth</label>
+		</form>
+		<h1>タブ幅の指定(自動縮小シングルライン)</h1>
+		<form name=tabAutoMinWidth>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> pixel(最小タブ幅) - tabAutoMinWidth</label>
+		</form>
+		<form name=tabAutoMaxWidth>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> pixel(最大タブ幅) - tabAutoMaxWidth</label>
+		</form>
+	</div>
+
+	<div id=tabFontSetting class=cSetting>
+		<h1>タブのフォント</h1>
+		<div class=cHelpInput>
+		<button style="width:10em;" onclick="javascript:setTabFontDefault()"><img src=arrow_return.png> 標準設定に戻す</button><br>
+		<button style="width:10em;" onclick="javascript:chooseTabFont()"><img src=chooseFont.png> フォントの変更...</button>
+		タブのフォント: <b><span style="color:blue;" id=currentTabFont>既定のフォント</span></b><span class="cSettingName"> - tabFont</span>
+		</div>
+		<div class="cHelpInput cSmallBreak">指定されたフォントがシステムにない場合、既定のフォントが使用されます。フォントが大きすぎる場合は、最大で表示できるサイズまで丸められます(例：タブスキンが高さ18ポイントまでしか表示できないとき、タブのフォントは、18ポイントまで丸められます)。</div>
+	</div>
+
+	<div id=tabPosSetting class=cSetting>
+		<h1>タブバーの位置</h1>
+		<div class=cHelpInput>タブバーの位置の変更は、画面スタイルを旧スタイル(oldStyle)にする必要があります。</div>
+		<form name=tabPos>
+			<label><input type=radio name=v defaultChecked value=0>上に表示する - tabPosTop</label><br>
+			<div class=cHelp>タブを上に表示します(標準設定)。</div>
+			<label><input type=radio name=v value=1>下に表示する - tabPosBottom</label><br>
+			<div class=cHelp>タブを下に表示します。</div>
+		</form>
+	</div>
+
+	<div id=newTabPositionSetting class=cSetting>
+		<h1>新規タブの追加位置</h1>
+		<div class=cHelpInput>新規タブを開くときの追加位置を指定します。この設定はアプリケーション全体で有効な設定です。</div>
+		<form name=newTabPosition>
+			<label><input type=radio name=v defaultChecked value=0>右端に新規タブを追加 - newTabRight</label><br>
+			<div class=cHelp>常に右端に新規タブを追加します。タブグループの場合は、タブグループ内の右端に追加します。</div>
+			<label><input type=radio name=v value=1>左端に新規タブを追加 - newTabLeft</label><br>
+			<div class=cHelp>常に左端に新規タブを追加します。タブグループの場合は、タブグループ内の左端に追加します。</div>
+			<label><input type=radio name=v value=2>アクティブタブの右側に追加(標準設定) - newTabActiveRight</label><br>
+			<div class=cHelp>アクティブタブの右側に新規タブを追加します。</div>
+			<label><input type=radio name=v value=3>アクティブタブの左側に追加 - newTabActiveLeft</label><br>
+			<div class=cHelp>アクティブタブの左側に新規タブを追加します。</div>
+		</form>
+		<form name=newTabPositionTabList class="cSmallBreak">
+			<label><select name=v>
+				<option defaultChecked value=0>アプリケーションの設定に従う
+				<option value=1>右端に新規タブを追加
+				<option value=2>左端に新規タブを追加
+				<option value=3>アクティブタブの右側に追加
+				<option value=4>アクティブタブの左側に追加
+			</select> ：タブリスト - newTabPositionTabList</label>
+		</form>
+		<div class=cHelpInput>タブリストを開くときのタブ追加位置を指定します。</div>
+		<form name=newTabPositionWindow class="cSmallBreak">
+			<label><select name=v>
+				<option defaultChecked value=0>アプリケーションの設定に従う
+				<option value=1>右端に新規タブを追加
+				<option value=2>左端に新規タブを追加
+				<option value=3>アクティブタブの右側に追加
+				<option value=4>アクティブタブの左側に追加
+			</select> ：外部起動 - newTabPositionWindow</label>
+		</form>
+		<div class=cHelpInput>単一起動で外部から起動されたときのタブ追加位置を指定します。</div>
+	</div>
+
+	<div id=newTabActivateSetting class=cSetting>
+		<h1>新規タブのアクティブ指定</h1>
+		<form name=newTabActivate>
+			<label><input type="checkbox" name=v>新規タブをアクティブ - newTabActivate</label><br>
+			<div class=cHelp>新しく開いたタブをアクティブにします(標準設定:off)。</div>
+		</form>
+		<form name=newTabActivateFromPage class="cSmallBreak">
+			<label><select name=v>
+				<option defaultChecked value=0>アプリケーションの設定に従う
+				<option value=1>アクティブにする
+				<option value=2>アクティブにしない
+			</select> ：ページからの新規タブアクティブ指定 - newTabActivateFromPage</label>
+			<div class="cHelp">ページからの新規タブアクティブを指定します。</div>
+		</form>
+		<form name=newProcessActivate class="cSmallBreak">
+			<label><select name=v>
+				<option defaultChecked value=0>アプリケーションの設定に従う
+				<option value=1>アクティブにする
+				<option value=2>アクティブにしない
+			</select> ：外部起動アクティブ指定 - newProcessActivate</label>
+			<div class=cHelp>この項目は、起動が一つのみ(singleInstanceがon)のとき、効果がある設定です。</div>
+			<div class="cHelp cSmallBreak">外部から起動されたときの新規タブアクティブを指定します。</div>
+		</form>
+	</div>
+	
+	<div id=openPopupSetting class=cSetting>
+		<h1>ポップアップの開き方</h1>
+		<form name=openPopup>
+			<label><input type="checkbox" name=v>新しいウインドウで開く - openPopup</label><br>
+			<div class=cHelpInput>チェックすると、ポップアップを新しいウインドウで開きます。チェックを外すとポップアップはタブで開かれます(標準設定:on)。</div>
+		</form>
+	</div>
+	
+	<div id=searchInBrowserSetting class=cSetting>
+		<h1>ブラウザでの検索設定</h1>
+		<form name=searchNewTab>
+			<label><input type="checkbox" name=v>新規タブを開く - searchNewTab</label><br>
+			<div class=cHelpInput>ショートカットキーやマウス動作(左ボタン押しながら右など)での検索で、新規タブを開きます(標準設定:on)。</div>
+		</form>
+		<form name=searchTabGroup>
+			<label><input type="checkbox" name=v>新規タブをタブグループ開く - searchTabGroup</label><br>
+			<div class=cHelpInput>ブラウザからの検索で、新規タブが開かれるとき、タブをタブグループで開きます(標準設定:on)。ドロップアクション・ショートカットキー・マウス動作での検索が該当します。この設定は、searchNewTabが有効になっている必要があります。</div>
+		</form>
+	</div>
+
+	<div id=closeActiveTabSetting class=cSetting>
+		<h1>アクティブタブを閉じたときの動作</h1>
+		<form name=closeActiveTab>
+			<label><input type=radio name=v defaultChecked value=0>直前のアクティブタブ - closeActiveTabMDI</label><br>
+			<div class=cHelp>アクティブタブを閉じたとき、直前にアクティブだったタブをアクティブにします(標準設定)。</div>
+			<label><input type=radio name=v value=1>右のタブをアクティブ - closeActiveTabRight</label><br>
+			<div class=cHelp>アクティブタブを閉じたとき、右のタブをアクティブにします。</div>
+			<label><input type=radio name=v value=2>左のタブをアクティブ - closeActiveTabLeft</label><br>
+			<div class=cHelp>アクティブタブを閉じたとき、左のタブをアクティブにします。</div>
+		</form>
+	</div>
+
+	<div id=selectTabSetting class=cSetting>
+		<h1>タブの選択動作</h1>
+		<form name=wheelTab>
+			<label><input type="checkbox" name=v>ホイールでアクティブタブを切替える - wheelTab</label><br>
+			<div class=cHelp>タブバー上でのホイールでアクティブタブを切替えます(標準設定:on)。</div>
+		</form>
+		<form name=wheelTabScroll>
+			<label><input type="checkbox" name=v>ホイールでスクロールする - wheelTabScroll</label><br>
+			<div class=cHelp>この設定はタブがシングルラインのとき有効です。タブバー上でのホイールでタブをスクロールします(標準設定:off)。この設定は、wheelTabより優先されます。</div>
+		</form>
+		<form name=wheelTabLoop>
+			<label><input type="checkbox" name=v>ホイールでアクティブタブ切替えをループ - wheelTabLoop</label><br>
+			<div class=cHelp>タブバー上でのホイールでアクティブタブ切替えで、ループを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=selectTabMDI>
+			<label><input type="checkbox" name=v>MDI形式でのアクティブタブ切替え - selectTabMDI</label><br>
+			<div class=cHelp>ショートカットキーなどでのアクティブタブ切替えで、チェックすると、アクティブになった順番で切替えます。チェックしないとき、タブバーでの順序で切替えます(標準設定:off)。</div>
+		</form>
+	</div>
+
+	<div id=lastTabCmdSetting class=cSetting>
+		<h1>最後のタブを閉じたときの動作</h1>
+		<form name=lastTabCmd>
+			<label><input type=radio name=v defaultChecked value=0>何もしない - lastTabNoop</label><br>
+			<div class=cHelp>最後のタブを閉じるとき、何もしません。</div>
+			<label><input type=radio name=v value=1>プログラム終了 - lastTabExit</label><br>
+			<div class=cHelp>最後のタブを閉じたとき、プログラムを終了します。</div>
+			<label><input type=radio name=v value=2>空白ページを開く - lastTabOpenBlank</label><br>
+			<div class=cHelp>最後のタブを閉じたとき、空白ページ(about:blank)を開きます。</div>
+			<label><input type=radio name=v value=3>ローカルホームを開く - lastTabOpenLocalHome</label><br>
+			<div class=cHelp>最後のタブを閉じたとき、ローカルホーム(about:localhome)を開きます。</div>
+			<label><input type=radio name=v value=4>ホームページを開く - lastTabOpenHome</label><br>
+			<div class=cHelp>最後のタブを閉じたとき、IEのホームページを開きます。</div>
+			<label><input type=radio name=v value=5>新しいタブを開く - lastTabOpenTab</label><br>
+			<div class=cHelp>最後のタブを閉じたとき、新しいタブ(about:tabs)を開きます。</div>
+			<label><input type=radio name=v value=6>新しいタブ(ユーザ定義)を開く - lastTabOpenNew</label><br>
+			<div class=cHelp>最後のタブを閉じたとき、新しいタブ(標準設定about:tabs,変更している場合は、ユーザ定義のURL)を開きます。</div>
+			<label><input type=radio name=v value=7>タブを閉じる - lastTabClose</label><br>
+			<div class=cHelp>最後のタブを閉じます(標準設定)。</div>
+		</form>
+	</div>
+
+	<div id=isolateSetting class=cSetting>
+		<h1>最後のタブを結合したときの動作</h1>
+		<div class=cHelpInput>最後のタブを別のウインドウに結合したときの動作を指定します。</div>
+		<form name=lastUnionCmd>
+			<label><input type=radio name=v defaultChecked value=0>プログラム終了 - lastUnionExit</label><br>
+			<div class=cHelp>最後のタブを結合したとき、プログラムを終了します(標準設定)。</div>
+			<label><input type=radio name=v value=1>タブを閉じる - lastUnionClose</label><br>
+			<div class=cHelp>タブを閉じます。</div>
+		</form>
+	</div>
+
+	<div id=tabSnapshotSetting class=cSetting>
+		<h1>タブスナップショット</h1>
+		<form name=tabSnapshot>
+			<label><input type="checkbox" name=v>定期的にタブスナップショットを保存 - tabSnapshot</label><br>
+			<div class=cHelpInput>タブのsnapshotを定期的に保存します(既定on)。マルチスレッド・プロセスで有効です。setting/tablist/snapshot配下に保存されます。</div>
+		</form>
+		<form name=tabSnapshotInterval class="cSmallBreak">
+			<label><input type="text" name=v maxlength=6 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> 分間隔 - tabSnapshotInterval</label>
+			<div class=cHelpInput>タブスナップショットの保存間隔を指定します(既定値:30分)。0を指定すると既定値に戻ります。</div>
+		</form>
+		<form name=tabSnapshotMaxCount>
+			<label><input type="text" name=v maxlength=4 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);">ファイルまで保存 - tabSnapshotMaxCount</label>
+			<div class=cHelpInput>setting/tablist/snapshot配下に保存されるタブsnapshotの最大保存数を指定します。保存数を超えた古いファイルは削除されます。0を指定すると既定値に戻ります。</div>
+		</form>
+	</div>
+
+	<div id=tabOptionSetting class=cSetting>
+		<h1>タブオプション</h1>
+		<form name=tabCloseButton>
+			<label><input type="checkbox" name=v>タブに閉じるボタン表示 - tabCloseButton</label><br>
+			<div class=cHelp>タブに閉じるボタンを表示します(標準設定:on)。</div>
+		</form>
+		<form name=tabGroupColor>
+			<label><input type="checkbox" name=v>１タブグループカラー表示 - tabGroupColor</label><br>
+			<div class=cHelp>タブグループの時、タブが１つであってもタブグループカラーを表示します(標準設定:off)。</div>
+		</form>
+		<form name=tabControlBar>
+			<label><input type="checkbox" name=v>タブコントロールバーの表示 - tabControlBar</label><br>
+			<div class=cHelp>タブの右側に、タブ制御・シングルラインタブのときはスクロールを行えるツールバーを表示します(標準設定:on)。</div>
+		</form>
+		<form name=navCloseLock>
+			<label><input type="checkbox" name=v>ナビゲートクローズロック - navCloseLock</label><br>
+			<div class=cHelp>ナビゲートロックを設定したとき、クローズロックも設定します(標準設定:on)。</div>
+		</form>
+		<form name=showTabState>
+			<label><input type="checkbox" name=v>タブ状態のアイコン表示 - showTabState</label><br>
+			<div class=cHelp>クローズロック、ナビゲートロック、自動更新状態をタブにアイコン表示します(標準設定:on)。</div>
+		</form>
+		<form name=activeNoAutoRefresh>
+			<label><input type="checkbox" name=v>アクティブタブの自動更新抑止 - activeNoAutoRefresh</label><br>
+			<div class=cHelp>自動更新設定でアクティブタブのとき、自動更新を行いません(標準設定:on)。</div>
+		</form>
+	</div>
+
+	<div id=actionTabItemSetting class=cSetting>
+		<h1>タブのマウス動作</h1>
+		<div class=cHelpInput>
+		<button class="cSetDefault" id="actionTabItemSetDefault"><span>標準設定に戻す<span></button><br>
+		タブ上でのマウス動作を標準設定に戻します。</div>
+		<form name=tabItemLClick     class=cDummy><label><select name=v class=cSelectCmd></select> : クリック - tabItemLClick</label></form>
+		<form name=tabItemRClick     class=cDummy><label><select name=v class=cSelectCmd></select> : 右クリック - tabItemRClick</label></form>
+		<form name=tabItemMClick     class=cDummy><label><select name=v class=cSelectCmd></select> : 中央クリック - tabItemMClick</label></form>
+		<form name=tabItemX1Click    class=cDummy><label><select name=v class=cSelectCmd></select> : X1クリック - tabItemX1Click</label></form>
+		<form name=tabItemX2Click    class=cDummy><label><select name=v class=cSelectCmd></select> : X2クリック - tabItemX2Click</label></form>
+		<form name=tabItemLDblClick  class=cDummy><label><select name=v class=cSelectCmd></select> : ダブルクリック - tabItemLDblClick</label></form>
+		<form name=tabItemRDblClick  class=cDummy><label><select name=v class=cSelectCmd></select> : 右ダブルクリック - tabItemRDblClick</label></form>
+		<form name=tabItemMDblClick  class=cDummy><label><select name=v class=cSelectCmd></select> : 中央ダブルクリック - tabItemMDblClick</label></form>
+		<form name=tabItemX1DblClick class=cDummy><label><select name=v class=cSelectCmd></select> : X1ダブルクリック - tabItemX1DblClick</label></form>
+		<form name=tabItemX2DblClick class=cDummy><label><select name=v class=cSelectCmd></select> : X2ダブルクリック - tabItemX2DblClick</label></form>
+		</form>
+		<div class=cHelpInput>タブ上でのマウス動作を指定します。クリックとダブルクリックの動作を両方指定することは推奨しません(例:ダブルクリックの動作を指定したときは、クリックの動作を「なし」にする)。</div>
+	</div>
+
+	<div id=actionTabBkgdSetting class=cSetting>
+		<h1>タブ背景(タブがない部分)のマウス動作</h1>
+		<div class=cHelpInput>
+		<button class="cSetDefault" id="actionTabBkgdSetDefault"><span>標準設定に戻す</span></button><br>
+		タブ背景でのマウス動作を標準設定に戻します。</div>
+		<form name=tabBkgdLClick     class=cDummy><label><select name=v class=cSelectCmd></select> : クリック - tabBkgdLClick</label></form>
+		<form name=tabBkgdRClick     class=cDummy><label><select name=v class=cSelectCmd></select> : 右クリック - tabBkgdRClick</label></form>
+		<form name=tabBkgdMClick     class=cDummy><label><select name=v class=cSelectCmd></select> : 中央クリック - tabBkgdMClick</label></form>
+		<form name=tabBkgdX1Click    class=cDummy><label><select name=v class=cSelectCmd></select> : X1クリック - tabBkgdX1Click</label></form>
+		<form name=tabBkgdX2Click    class=cDummy><label><select name=v class=cSelectCmd></select> : X2クリック - tabBkgdX2Click</label></form>
+		<form name=tabBkgdLDblClick  class=cDummy><label><select name=v class=cSelectCmd></select> : ダブルクリック - tabBkgdLDblClick</label></form>
+		<form name=tabBkgdRDblClick  class=cDummy><label><select name=v class=cSelectCmd></select> : 右ダブルクリック - tabBkgdRDblClick</label></form>
+		<form name=tabBkgdMDblClick  class=cDummy><label><select name=v class=cSelectCmd></select> : 中央ダブルクリック - tabBkgdMDblClick</label></form>
+		<form name=tabBkgdX1DblClick class=cDummy><label><select name=v class=cSelectCmd></select> : X1ダブルクリック - tabBkgdX1DblClick</label></form>
+		<form name=tabBkgdX2DblClick class=cDummy><label><select name=v class=cSelectCmd></select> : X2ダブルクリック - tabBkgdX2DblClick</label></form>
+		<div class=cHelpInput>タブ背景でのマウス動作を指定します。クリックとダブルクリックの動作を両方指定することは推奨しません(例:ダブルクリックの動作を指定したときは、クリックの動作を「なし」にする)。</div>
+	</div>
+	
+	<div id=actionTabItemKeySetting class=cSetting>
+		<h1>タブ上のキー＋マウス動作</h1>
+		<div class=cHelpInput>
+		<button class="cSetDefault" id="actionTabWithKeySetDefault"><span>標準設定に戻す<span></button><br>
+		タブ上でのキー＋マウス動作を標準設定に戻します。</div>
+		<form name=tabItemCtrlLClick   class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + クリック - tabCtrlLClick</label></form>
+		<form name=tabItemCtrlRClick   class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + 右クリック - tabCtrlRClick</label></form>
+		<form name=tabItemCtrlMClick   class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + 中央クリック - tabCtrlMClick</label></form>
+		<form name=tabItemCtrlX1Click  class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + X1クリック - tabCtrlX1Click</label></form>
+		<form name=tabItemCtrlX2Click  class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + X2クリック - tabCtrlX2Click</label></form>
+		<form name=tabItemShiftLClick  class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + クリック - tabShiftLClick</label></form>
+		<form name=tabItemShiftRClick  class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + 右クリック - tabShiftRClick</label></form>
+		<form name=tabItemShiftMClick  class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + 中央クリック - tabShiftMClick</label></form>
+		<form name=tabItemShiftX1Click class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + X1クリック - tabShiftX1Click</label></form>
+		<form name=tabItemShiftX2Click class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + X2クリック - tabShiftX2Click</label></form>
+		</form>
+		<div class=cHelpInput>タブ上でのキーを押しながらのマウス動作を指定します。</div>
+	</div>
+
+	<div id=actionTabBkgdKeySetting class=cSetting>
+		<h1>タブ背景(タブがない部分)のキー＋マウス動作</h1>
+		<div class=cHelpInput>
+		<button class="cSetDefault" id="actionTabBkgdWithKeySetDefault"><span>標準設定に戻す<span></button><br>
+		タブ背景でのキー＋マウス動作を標準設定に戻します。</div>
+		<form name=tabBkgdCtrlLClick   class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + クリック - tabBkgdCtrlLClick</label></form>
+		<form name=tabBkgdCtrlRClick   class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + 右クリック - tabBkgdCtrlRClick</label></form>
+		<form name=tabBkgdCtrlMClick   class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + 中央クリック - tabBkgdCtrlMClick</label></form>
+		<form name=tabBkgdCtrlX1Click  class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + X1クリック - tabBkgdCtrlX1Click</label></form>
+		<form name=tabBkgdCtrlX2Click  class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl + X2クリック - tabBkgdCtrlX2Click</label></form>
+		<form name=tabBkgdShiftLClick  class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + クリック - tabBkgdShiftLClick</label></form>
+		<form name=tabBkgdShiftRClick  class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + 右クリック - tabBkgdShiftRClick</label></form>
+		<form name=tabBkgdShiftMClick  class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + 中央クリック - tabBkgdShiftMClick</label></form>
+		<form name=tabBkgdShiftX1Click class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + X1クリック - tabBkgdShiftX1Click</label></form>
+		<form name=tabBkgdShiftX2Click class=cDummy><label><select name=v class=cSelectCmd></select> : Shift + X2クリック - tabBkgdShiftX2Click</label></form>
+		</form>
+		<div class=cHelpInput>タブ背景でのキーを押しながらのマウス動作を指定します。</div>
+	</div>
+
+	<div id=actionXButtonSetting class=cSetting>
+		<h1>ブラウザ上のクリック・ダブルクリック動作</h1>
+		<div class=cHelpInput>
+		<button class="cSetDefault" id="browserXButtonSetDefault"><span>標準設定に戻す</span></button><br>
+		ブラウザ上でのクリック・ダブルクリック動作を標準設定に戻します。</div>
+		<form name=browserLDblClick  class=cDummy><label><select name=v class=cSelectCmd></select> : 左ダブルクリック - LDblClick</label></form>
+		<form name=browserRDblClick  class=cDummy><label><select name=v class=cSelectCmd></select> : 右ダブルクリック - RDblClick</label></form>
+		<form name=browserX1Click    class=cDummy><label><select name=v class=cSelectCmd></select> : 第4クリック - X1Click</label></form>
+		<form name=browserX2Click    class=cDummy><label><select name=v class=cSelectCmd></select> : 第5クリック - X2Click</label></form>
+		<form name=browserX1DblClick class=cDummy><label><select name=v class=cSelectCmd></select> : 第4ダブルクリック - X1DblClick</label></form>
+		<form name=browserX2DblClick class=cDummy><label><select name=v class=cSelectCmd></select> : 第5ダブルクリック - X2DblClick</label></form>
+		<div class=cHelpInput>ブラウザ上でのクリック・ダブルクリックの動作を指定します。第4,5ボタンは、クリック動作を指定できます。クリックとダブルクリックの動作を両方指定することは推奨しません(例:ダブルクリックの動作を指定したときは、クリックの動作を「なし」にする)。</div>
+	</div>
+	
+	<div id=actionWithButtonSetting class=cSetting>
+		<h1>ブラウザ上の左、右ボタン、Ctrlキー、Shiftキーを押しながらの動作</h1>
+		<div class=cHelpInput>
+		<button class="cSetDefault" id="browserWithButtonSetDefault"><span>標準設定に戻す</span></button><br>
+		ブラウザ上での左、右ボタン、Ctrlキー、Shiftキーを押しながらの動作を標準設定に戻します。</div>
+		<form name=browserLWithWheelUp       class=cDummy><label><select name=v class=cSelectCmd></select> : 左＋ホイールアップ - LWithWheelUp</label></form>
+		<form name=browserLWithWheelDown     class=cDummy><label><select name=v class=cSelectCmd></select> : 左＋ホイールダウン - LWithWheelDown</label></form>
+		<form name=browserRWithWheelUp       class=cDummy><label><select name=v class=cSelectCmd></select> : 右＋ホイールアップ - RWithWheelUp</label></form>
+		<form name=browserRWithWheelDown     class=cDummy><label><select name=v class=cSelectCmd></select> : 右＋ホイールダウン - RWithWheelDown</label></form>
+		<form name=browserCtrlWithWheelUp    class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl＋ホイールアップ - CtrlWithWheelUp</label></form>
+		<form name=browserCtrlWithWheelDown  class=cDummy><label><select name=v class=cSelectCmd></select> : Ctrl＋ホイールダウン - CtrlWithWheelDown</label></form>
+		<form name=browserShiftWithWheelUp   class=cDummy><label><select name=v class=cSelectCmd></select> : Shift＋ホイールアップ - ShiftWithWheelUp</label></form>
+		<form name=browserShiftWithWheelDown class=cDummy><label><select name=v class=cSelectCmd></select> : Shift＋ホイールダウン - ShiftWithWheelDown</label></form>
+		<form name=browserLWithMClick        class=cDummy><label><select name=v class=cSelectCmd></select> : 左＋中央クリック - LWithMClick</label></form>
+		<form name=browserRWithMClick        class=cDummy><label><select name=v class=cSelectCmd></select> : 右＋中央クリック - RWithMClick</label></form>
+		<form name=browserLWithRClick        class=cDummy><label><select name=v class=cSelectCmd></select> : 左押しながら＋右クリック - LWithRClick</label></form>
+		<form name=browserRWithLClick        class=cDummy><label><select name=v class=cSelectCmd></select> : 右押しながら＋左クリック - RWithLClick</label></form>
+		<div class=cHelpInput>ブラウザ上での左、右ボタン、Ctrlキー、Shiftキーを押しながらの動作を指定します。</div>
+	</div>
+	
+	<div id=tabClosedSetting class=cSetting>
+		<h1>閉じたタブの保存</h1>
+		<form name=maxClosed>
+			<label><input type="text" name=v maxlength=2 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> 個まで保存 - maxClosed</label>
+			<div class=cHelpInput>閉じたタブの最大保存数を指定します。閉じたタブを開きなおすとき、「進む・戻る履歴」の設定だけ、履歴も復元されます。</div>
+		</form>
+		<form name=saveClosed>
+			<label><input type="checkbox" name=v>最近閉じたタブの保存 - saveClosed</label><br>
+			<div class=cHelp>アプリ終了時に最近閉じたタブを保存します(標準設定:on)。保存したとき、アプリ起動時、最近閉じたタブが引き継がれます。</div>
+		</form>
+		<form name=saveScrollPos>
+			<label><input type="checkbox" name=v>スクロール位置の保存 - saveScrollPos</label><br>
+			<div class=cHelp>閉じたタブでスクロール位置を保存します(標準設定:on)。有効のとき、開きおなしたタブのスクロール位置も復元されます。</div>
+		</form>
+	</div>
+
+	<div id=travelLogSetting class=cSetting>
+		<h1>進む・戻る履歴</h1>
+		<form name=maxTravelLog>
+			<label><input type="text" name=v maxlength=2 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> 個まで閉じたタブの戻る・進む履歴を保存 - maxTravelLog</label>
+			<div class=cHelpInput>閉じたタブを保存するとき・終了時のタブを保存するときに、同時に保存する戻る・進む履歴の数を指定します。</div>
+		</form>
+	</div>
+	
+	<div id=renderingSetting class=cSetting>
+		<h1>レンダリングエンジンの指定</h1>
+		<form name=featureBrowserEmulation>
+		<div class=cHelpInput>使用するレンダリングエンジンを指定します。変更は、次回起動時から有効です。マルチプロセスのときは、新規タブから有効です。</div>
+		<label><select name=v>
+			<option defaultChecked value=1>最新のレンダリングを使用
+			<option value=11001>常にIE11レンダリングを使用
+			<option value=11000>IE11互換レンダリングを使用
+			<option value=10001>常にIE10レンダリングを使用
+			<option value=10000>IE10互換レンダリングを使用
+			<option value=9999>常にIE9レンダリングを使用
+			<option value=9000>IE9互換レンダリングを使用
+			<option value=8888>常にIE8レンダリングを使用
+			<option value=8000>IE8互換レンダリングを使用
+			<option value=0>指定しない</select> - renderingEngine</label>
+		</form>
+		<br>
+		<div class=cHelpInput>Internet Explorerのバージョンで使用するレンダリングエンジンは、以下です。
+		<table vspace=0px hspace=0px border=1 cellpadding=0 cellspacing=0 style="color:#575757;margin-top:5px; margin-bottom:5px;">
+			<tr align=center><td width=130px>設定値</td>  <td width=60px>IE11</td><td width=60px>IE10</td><td width=60px>IE9</td><td width=60px>IE8</td><td width=60px>IE7</td><td width=60px>IE6</td></tr>
+			<tr align=center><td>最新のレンダリング</td>  <td>IE11互換</td><td>IE10互換</td><td>IE9互換</td><td>IE8互換</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>常にIE11レンダリング</td><td>常にIE11</td><td>常にIE10</td><td>常にIE9</td><td>常にIE8</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>IE11互換レンダリング</td><td>IE11互換</td><td>IE10互換</td><td>IE9互換</td><td>IE8互換</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>常にIE10レンダリング</td><td>常にIE10</td><td>常にIE10</td><td>常にIE9</td><td>常にIE8</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>IE10互換レンダリング</td><td>IE10互換</td><td>IE10互換</td><td>IE9互換</td><td>IE8互換</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>常にIE9レンダリング</td> <td>常にIE9</td><td>常にIE9</td><td>常にIE9</td><td>常にIE8</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>IE9互換レンダリング</td> <td>IE9互換</td><td>IE9互換</td><td>IE9互換</td><td>IE8互換</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>常にIE8レンダリング</td> <td>常にIE8</td><td>常にIE8</td><td>常にIE8</td><td>常にIE8</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>IE8互換レンダリング</td> <td>IE8互換</td><td>IE8互換</td><td>IE8互換</td><td>IE8互換</td><td>IE7互換</td><td>IE6互換</td></tr>
+			<tr align=center><td>指定しない</td>          <td>IE7互換</td><td>IE7互換</td><td>IE7互換</td><td>IE7互換</td><td>IE7互換</td><td>IE6互換</td></tr>
+		</table>
+		この設定は、レジストリHKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATIONへアプリ名を登録します。
+		</div>
+		<form class="cSmallBreak" name=featureGpuRendering>
+			<label><input type="checkbox" name=v><img class="cPng" src="ie9.png">9 or later: GPUレンダリング - featureGpuRendering</label><br>
+			<div class=cHelpInput>Internet Explorer9以降がインストールされているとき、GPUレンダリングを有効にします(標準設定:on)。
+			変更は、次回起動時から有効です。マルチプロセスのときは、新規タブから有効です。</div>
+			<div class="cHelpInput cSmallBreak">この設定は、レジストリHKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_GPU_RENDERINGへアプリ名を登録します。</div>
+		</form>
+	</div>
+	
+	<div id=securitySetting class=cSetting>
+		<h1>デフォルトセキュリティ</h1>
+		<div class=cHelpInput>タブを開くときのセキュリティを指定します。スクリプトの実行などoffにした場合、ページによっては正常に動作しません。その場合は自己責任となります。</div>
+		<form name=securityImage>
+			<label><input type="checkbox" name=v>画像のダウンロード・表示 - securityImage</label><br>
+			<div class=cHelp>画像をダウンロード・表示します(標準設定:on)。</div>
+		</form>
+		<form name=securityVideo>
+			<label><input type="checkbox" name=v>ビデオのダウンロード・表示 - securityVideo</label><br>
+			<div class=cHelp>ビデオをダウンロード・表示します(標準設定:on)。</div>
+		</form>
+		<form name=securitySound>
+			<label><input type="checkbox" name=v>サウンドのダウンロード・再生 - securitySound</label><br>
+			<div class=cHelp>サウンドをダウンロード・再生します(標準設定:on)。</div>
+		</form>
+		<form name=securityScript>
+			<label><input type="checkbox" name=v>スクリプトの実行 - securityScript</label><br>
+			<div class=cHelp>スクリプトの実行を許可します(標準設定:on)。</div>
+		</form>
+		<form name=securityJava>
+			<label><input type="checkbox" name=v>Javaの実行 - securityJava</label><br>
+			<div class=cHelp>Javaの実行を許可します(標準設定:on)。</div>
+		</form>
+		<form name=securityRunActiveX>
+			<label><input type="checkbox" name=v>ActiveXの実行 - securityRunActiveX</label><br>
+			<div class=cHelp>ActiveXの実行を許可します(標準設定:on)。</div>
+		</form>
+		<form name=securityDownloadActiveX>
+			<label><input type="checkbox" name=v>ActiveXのダウンロード - securityDownloadActiveX</label><br>
+			<div class=cHelp>ActiveXのダウンロードを許可します(標準設定:on)。</div>
+		</form>
+		<form name=metaRefresh>
+			<label><input type="checkbox" name=v>HTML Meta Refreshの実行 - metaRefresh</label><br>
+			<div class=cHelp>HTML Meta Refreshを実行します(標準設定:on)。</div>
+		</form>
+	</div>
+	
+	<div id=securityControlSetting class=cSetting>
+		<h1>セキュリティの制御</h1>
+		<form name=inheritSecurity>
+			<label><input type="checkbox" name=v>セキュリティの継承 - inheritSecurity</label><br>
+			<div class=cHelp>新しいタブとポップアップのセキュリティは、デフォルトセキュリティではなく、開く元タブセキュリティと同じになります(標準設定:on)。</div>
+		</form>
+	</div>
+	
+	<div id=connectionsSetting class=cSetting>
+		<h1>Tridentの接続数設定</h1>
+		<div class=cHelpInput>変更は、次回起動時から有効です。</div>
+		<form name=featureMaxConnectionsPer1_0Server>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"><img class="cPng" src="ie8.png">8 or later: HTTP1.0最大接続数 - maxHttp1.0Connections</label>
+			<div class=cHelpInput>HTTP1.0の最大接続数を指定します(既定値:6,有効値2-128)。0を指定すると、IEコンポーネントの既定値になります(レジストリに書き込まない)。</div>
+			<div class="cHelpInput cSmallBreak">この設定は、レジストリHKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPER1_0SERVERへアプリ名を登録します。</div>
+		</form>
+		<form name=featureMaxConnectionsPerServer class="cSmallBreak">
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"><img class="cPng" src="ie8.png">8 or later: HTTP1.1最大接続数 - maxHttp1.1Connections</label>
+			<div class=cHelpInput>HTTP1.1の最大接続数を指定します(既定値:6,有効値2-128)。0を指定すると、IEコンポーネントの既定値になります(レジストリに書き込まない)。</div>
+			<div class="cHelpInput cSmallBreak">この設定は、レジストリHKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPERSERVERへアプリ名を登録します。</div>
+		</form>
+	</div>
+	
+	<div id=featureSetting class=cSetting>
+		<h1>Tridentの詳細設定</h1>
+		<div class=cHelpInput>変更は、次回起動時から有効です。</div>
+		<form name=featureObjectCaching>
+			<label><input type="checkbox" name=v>ActiveX Object Caching - featureObjectCaching</label><br>
+			<div class=cHelp>ActiveX Object Cachingを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=featureZoneElevation>
+			<label><input type="checkbox" name=v>ゾーン昇格ブロック有効 - featureZoneElevation</label><br>
+			<div class=cHelp>ゾーン昇格ブロックを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=featureMimeHandling>
+			<label><input type="checkbox" name=v>MIME ハンドリング有効 - featureMimeHandling</label><br>
+			<div class=cHelp>MimeHandingを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=featureMimeSniffing>
+			<label><input type="checkbox" name=v>MIME スニッフィング有効 - featureMimeSniffing</label><br>
+			<div class=cHelp>有効のとき、拡張子ではなく、内容によってファイルを開きます(標準設定:on)。</div>
+		</form>
+		<form name=featureWindowRestrictions>
+			<label><input type="checkbox" name=v>ウィンドウの制限 - featureWindowRestrictions</label><br>
+			<div class=cHelp>有効のとき、スクリプトでのウインドウ制御を制限します(標準設定:on)。</div>
+		</form>
+		<form name=featureWebocPopupmanagement>
+			<label><input type="checkbox" name=v>ポップアップ ブロック - featureWebocPopupmanagement</label><br>
+			<div class=cHelp>Internet Explorerでのポップアップ ブロック機能を有効にします。ポップアップブロックを機能させるためには、この項目をチェックし、さらにインターネットオプション「プライバシー」「ポップアップ ブロックを有効にする」を有効にする必要があります(標準設定:on)。</div>
+		</form>
+		<form name=featureBehaviors>
+			<label><input type="checkbox" name=v>バイナリ ビヘイビア - featureBehaviors</label><br>
+			<div class=cHelp>有効のとき、制限付きサイト ゾーンで HTML 形式のバイナリ ビヘイビアの使用をすべてブロックします(標準設定:on)。</div>
+		</form>
+		<form name=featureDisableMkProtocol>
+			<label><input type="checkbox" name=v>MK プロトコル無効 - featureDisableMkProtocol</label><br>
+			<div class=cHelp>MK プロトコルを無効にします(標準設定:on)。</div>
+		</form>
+		<form name=featureLocalmachineLockdown>
+			<label><input type="checkbox" name=v>ローカルマシンロックダウン - featureLocalmachineLockdown</label><br>
+			<div class=cHelp>ローカルマシンでHTMLファイルを開くと、次の制限が加えられます(標準設定:on)。
+				<li>ActiveX コントロールの実行を許可しません。 
+				<li>バイナリ ビヘイビアを許可しません。 
+				<li>Java を許可しません。 
+				<li>スクリプトの実行時にメッセージを表示します。 
+				<li>クロスドメイン データ アクセスの際にメッセージを表示します。 </div>
+		</form>
+		<form name=featureSecurityband>
+			<label><input type="checkbox" name=v>インフォメーションバー - featureSecurityband</label><br>
+			<div class=cHelp>インフォメーションバーを表示します(標準設定:on)。</div>
+		</form>
+		<form name=featureRestrictActivexinstall>
+			<label><input type="checkbox" name=v>ActiveX Update Restriction - featureRestrictActivexinstall</label><br>
+			<div class=cHelp>ActiveXのでインフォメーションバーが表示されます(標準設定:on)。</div>
+		</form>
+		<form name=featureValidateNavigateUrl>
+			<label><input type="checkbox" name=v>URLの妥当性チェック - featureValidateNavigateUrl</label><br>
+			<div class=cHelp>URL の妥当性をチェックします(標準設定:on)。</div>
+		</form>
+		<form name=featureRestrictFiledownload>
+			<label><input type="checkbox" name=v>ファイルダウンロード情報表示 - featureRestrictFiledownload</label><br>
+			<div class=cHelp>ファイルダウンロードでインフォメーションバーが表示されます(標準設定:off)。onにするとIE9以降の環境でdownloadができなくなる危険性があります。</div>
+		</form>
+		<form name=featureProtocolLockdown>
+			<label><input type="checkbox" name=v>プロトコルロックダウン - featureProtocolLockdown</label><br>
+			<div class=cHelp>プロトコルのセキュリティを強化します(標準設定:on)。</div>
+		</form>
+		<form name=featureHttpUsernamePasswordDisable>
+			<label><input type="checkbox" name=v>Usernames and Passwords in URL's - featureHttpUsernamePasswordDisable</label><br>
+			<div class=cHelp>URLに含まれるユーザ名・パスワード<br>
+			&nbsp;&nbsp;http(s)://username:password@server/～<br>
+			をサポートしません(標準設定:on)。</div>
+		</form>
+		<form name=featureSafeBindtoobject>
+			<label><input type="checkbox" name=v>ActiveX Binding Safety Checks - featureSafeBindtoobject</label><br>
+			<div class=cHelp>ActiveX Binding Safety Checksを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=featureUncSavedfilecheck>
+			<label><input type="checkbox" name=v>UncSavedfilecheck - featureUncSavedfilecheck</label><br>
+			<div class=cHelp>UncSavedfilecheckを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=featureGetUrlDomFilepathUnencoded>
+			<label><input type="checkbox" name=v>非エンコードファイルパス取得 - featureGetUrlDomFilepathUnencoded</label><br>
+			<div class=cHelp>有効のとき、file://プロトコルで、エンコードされないファイルパスが返却されます(標準設定:off)。 </div>
+		</form>
+		<form name=featureTabbedBrowsing>
+			<label><input type="checkbox" name=v><img class="cPng" src="ie7.png">7 or later: タブブラウジング - featureTabbedBrowsing</label><br>
+			<div class=cHelp>Tridentのタブブラウジング機能を有効にします。有効のとき、
+			<li>リンク右クリックメニューの [新しいタブで開く] 
+			<li>マウスの中央ボタンでのリンククリック
+			<li>Ctrl キーを押したままリンクをクリック<br>
+			で、新しいタブが開きます(標準設定:on)。</div>
+		</form>
+		<form name=featureSslux>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: SSLエラー表示 - featureSslux</label><br>
+			<div class=cHelp>Secure Sockets Layer (SSL) エラーでダイアログを表示します(標準設定:off)。</div>
+		</form>
+		<form name=featureDisableNavigationSounds>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: ナビゲートサウンド無効 - featureDisableNavigationSounds</label><br>
+			<div class=cHelp>ナビゲートのときのサウンドを無効にします(標準設定:off)。</div>
+		</form>
+		<form name=featureDisableLegacyCompression>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: DisableLegacyCompression-featureDisableLegacyCompression</label><br>
+			<div class=cHelp>LegacyCompressionを無効にします(標準設定:on)。チェックを外すと、Flashが再生されない場合があります。</div>
+		</form>
+		<form name=featureXmlHttp>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: XmlHttp - featureXmlHttp</label><br>
+			<div class=cHelp>XMLHttpRequestの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=featureDisableTelnetProtocol>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: Telnetプロトコル無効 - featureDisableTelnetProtocol</label><br>
+			<div class=cHelp>Telnetプロトコル(telnet:)を無効にします(標準設定:on)。</div>
+		</form>
+		<form name=featureFeeds>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: フィード - featureFeeds</label><br>
+			<div class=cHelp>フィードコンテンツを表示します。無効のとき、XMLファイルとして表示します(標準設定:on)。</div>
+		</form>
+		<form name=featureBlockInputPrompts>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: 文字入力ダイアログブロック - featureBlockInputPrompts</label><br>
+			<div class=cHelp>文字入力ダイアログへのポップアップブロック有効・無効を設定します(標準設定:off)。</div>
+		</form>
+		<form name=featureEnableScriptPasteUrlActionIfPrompt>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: クリップボード操作確認 - featureScriptPasteIfPrompt</label><br>
+			<div class=cHelp>スクリプトからのクリップボード操作の際、操作許可の確認ダイアログを表示します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_AJAX_CONNECTIONEVENTS>
+			<label><input type="checkbox" name=v><img src="ie8.png">8 or later: AJAX Connection Events - featureAjaxConnectionEvents</label><br>
+			<div class=cHelp>AJAX Connection Eventsの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_SHOW_APP_PROTOCOL_WARN_DIALOG>
+			<label><input type="checkbox" name=v><img src="ie8.png">8 or later: Application Protocol Confirmation - featureShowAppProtocolWarnDialog</label><br>
+			<div class=cHelp>Application Protocol Confirmationの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_BLOCK_CROSS_PROTOCOL_FILE_NAVIGATION>
+			<label><input type="checkbox" name=v>File Protocol Navigation - featureBlockCrossProtocolFileNavigation</label><br>
+			<div class=cHelp>File Protocol Navigationの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_VIEWLINKEDWEBOC_IS_UNSAFE>
+			<label><input type="checkbox" name=v><img src="ie8.png">8 or later: Frame Content Security - featureViewLinkedWebOcIsUnsafe</label><br>
+			<div class=cHelp>Frame Content Securityの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_IFRAME_MAILTO_THRESHOLD>
+			<label><input type="checkbox" name=v><img src="ie9.png">9 or later: IFrame Mailto Threshold - featureIFrameMailtoThreshold</label><br>
+			<div class=cHelp>IFrame Mailto Thresholdの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_IVIEWOBJECTDRAW_DMLT9_WITH_GDI>
+			<label><input type="checkbox" name=v><img src="ie9.png">9 or later: IViewObject Legacy Drawing - featureIViewObjectDMLT9WithGdi</label><br>
+			<div class=cHelp>IViewObject Legacy Drawingの有効・無効を設定します(標準設定:off)。</div>
+		</form>
+		<form name=FEATURE_BLOCK_LMZ_IMG>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: Local Image Blocking - featureBlockLMZImg</label><br>
+			<div class=cHelp>Local Image Blockingの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_BLOCK_LMZ_OBJECT>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: Local Object Blocking - featureBlockLMZObject</label><br>
+			<div class=cHelp>Local Object Blockingの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_SCRIPTURL_MITIGATION>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: Script URL Mitigation - featureScriptURLMitigation</label><br>
+			<div class=cHelp>Script URL Mitigationの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_DOMSTORAGE>
+			<label><input type="checkbox" name=v><img src="ie8.png">8 or later: Web Storage API Support - featureDOMStorage</label><br>
+			<div class=cHelp>Web Storage API Supportの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_RESTRICT_RES_TO_LMZ>
+			<label><input type="checkbox" name=v>Resource Protocol Restriction - featureRestrictResToLMZ</label><br>
+			<div class=cHelp>Resource Protocol Restrictionの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_WARN_ON_SEC_CERT_REV_FAILED>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: Security Certificate Revocation Failure - featureWarnOnSecCertRevFailed</label><br>
+			<div class=cHelp>Security Certificate Revocation Failureの有効・無効を設定します(標準設定:off)。</div>
+		</form>
+		<form name=FEATURE_STATUS_BAR_THROTTLING>
+			<label><input type="checkbox" name=v>Status Bar Update Frequency - featureStatusBarThrottling</label><br>
+			<div class=cHelp>Status Bar Update Frequencyの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_SHIM_MSHELP_COMBINE>
+			<label><input type="checkbox" name=v><img src="ie7.png">7 or later: Microsoft Visual Studio Legacy Help Support - featureShimMshelpCombine</label><br>
+			<div class=cHelp>Microsoft Visual Studio Legacy Help Supportの有効・無効を設定します(標準設定:off)。</div>
+		</form>
+		<form name=FEATURE_NINPUT_LEGACYMODE>
+			<label><input type="checkbox" name=v><img src="windows8.png">8 or later: Legacy Input Model - featureNInputLegacyMode</label><br>
+			<div class=cHelp>ページの入力レガシモードの有効・無効を設定します(標準設定:off)。レガシモードonの場合、ページへのタッチ入力がサポートされません。</div>
+		</form>
+		<form name=FEATURE_WEBOC_DOCUMENT_ZOOM>
+			<label><input type="checkbox" name=v><img src="windows8.png">8 or later: Web Browser Control Document Zoom - featureWebOCDocumentZoom</label><br>
+			<div class=cHelp>ブラウザのページズーム機能を有効にします(標準設定:on)。offにすると、一部タッチ操作でのズームが無効となります。</div>
+		</form>
+		<form name=FEATURE_DISABLE_HSTS>
+			<label><input type="checkbox" name=v><img src="ie11.png">11 or later: HTTP Strict Transport Security - featureDisableHSTS</label><br>
+			<div class=cHelp>HTTP Strict Transport Securityを無効にします(標準設定:off)。無効にすることは非推奨です。</div>
+		</form>
+	</div>
+	
+	<div id=internalFeatureSetting class=cSetting>
+		<h1>InternalFeature設定</h1>
+		<div class=cHelpInput>変更は、次回起動時から有効です。InternalFeature設定をonにすると、パフォーマンスが向上します。</div>
+		<form name=featureAlignedTimers>
+			<label><input type="checkbox" name=v><img src="ie9.png">9 or later: featureAlignedTimers</label><br>
+			<div class=cHelp>FEATURE_ALIGNED_TIMERSを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=featureAllowHighfreqTimers>
+			<label><input type="checkbox" name=v><img src="ie9.png">9 or later: featureAllowHighfreqTimers</label><br>
+			<div class=cHelp>FEATURE_ALLOW_HIGHFREQ_TIMERSを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_ADDITIONAL_IE8_MEMORY_CLEANUP>
+			<label><input type="checkbox" name=v><img src="ie8.png">8 or later: Additional IE8 Memory Cleanup - featureAdditionalIE8MemoryCleanup</label><br>
+			<div class=cHelp>Additional IE8 Memory Cleanupの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+		<form name=FEATURE_ACTIVEX_REPURPOSEDETECTION>
+			<label><input type="checkbox" name=v>ActiveXRepurposeDetection - featureActiveXRepurposeDetection</label><br>
+			<div class=cHelp>ActiveX Repurpose Detectionの有効・無効を設定します(標準設定:on)。</div>
+		</form>
+	</div>
+
+	<div id=proxySetting class="cSetting">
+		<h1 class="cSettingIcon">プロキシサーバ</h1>
+		<div class=cHelpInput>アプリケーションで使用するプロキシサーバを指定します。</div>
+		<form name=proxy>
+			<label><input type=radio name=v defaultChecked value=0>Internet Explorerの設定を使用 - proxyIE</label><br>
+			<div class=cHelp>Internet Explorerのプロキシ設定を使用します(標準設定)。</div>
+			<label><input type=radio name=v value=1>プロキシサーバを使用しない - proxyNo</label><br>
+			<div class=cHelp>プロキシサーバを使用せず、直接インターネットに接続します。</div>
+			<label><input id="idProxyUser" type=radio name=v value=2>ユーザ設定のプロキシを使用 - proxyUser</label><br>
+			<div class=cHelp>プロキシリストの中から、指定したものを使用します。指定がない、または、設定が無効の場合、Internet Explorerの設定を使用します。</div>
+		</form><div class="cHelp cSmallBreak" id="idProxyList">
+			<form name=proxyList>
+				<label>使用するプロキシの選択: <span id="idNoProxyCaption"><img src="sinfo.png"><span>設定がありません。設定の追加を行ってください。</span></span>
+				<select class="cHide cProxySelect" name=v><option defaultChecked value=:ng:> -- プロキシ情報を選択 -- </select></label>
+			</form>
+		</div>
+		<br>
+		<div class="cHelpInput cSubSection">ユーザ設定プロキシサーバ一覧</div>
+		<div class="cHelpInput">プロトコル毎にプロキシサーバを指定するときは、プロキシサーバ名に「http=proxy1:8080;https=proxy2:8080」のように入力します。プロキシサーバを通したくないアドレスは、例外に入力してください。
+								例外の入力例：ローカルとmicrosoft.comにプロキシサーバを通さない場合 「&lt;local&gt;;*.microsoft.com」</div>
+		<div class="cList">
+			<div class="cProxy">
+			<div class="cAdd"><form class=cInline name=idProxyNameInput><input maxlength="100"
+					class="cInline cProxyNameInput cMod cCueBanner" value="設定の名前を入力" name=v></form><form
+						 class=cInline name=idProxyServerInput><input 
+					class="cInline cProxyServerInput cMod cCueBanner" value="プロキシサーバ名を入力" name=v></form>
+			<button id="idProxyAdd" disabled class="cProxyAdd"><span>設定追加</span></button><br>
+			<span class="cProxyBypass">例外: </span><form class=cInline name=idProxyBypassInput><input 
+					class="cInline cProxyBypassInput cMod cCueBanner" value="プロキシを使用しないアドレスを入力" name=v></form><span class="cProxyAdd">&nbsp;</span>
+			</div>
+			</div>
+			<div class="cHelpInput">現在の設定: </div>
+			<div class="cProxy" id="idProxy">なし</div>
+		</div>
+	</div>
+	
+	<div id=userAgentSetting class=cSetting>
+		<h1>UserAgent</h1>
+		<div class=cHelpInput>指定すると、常に指定したユーザエージェントでHTTPリクエストが行われます。ページのスクリプトでのnavigator.userAgentの値も指定した値に変わり、ページのよっては誤動作する可能性があり設定には注意してください。</div>
+		<form name=userAgent>
+			<label><input type="text" onKeydown="return inputAlpNum(event.keyCode);" name=v style="height:22px;width:300px;"> - userAgent</label>
+		</form>
+		<div class=cHelpInput>ユーザエージェント一覧</div>
+		<form name=userAgentList>
+			<label><select name=v style="width:75%;" size=5 onChange="userAgentChange();"></select></label>
+		</form>
+	</div>
+	
+	<div id=BHOSetting class=cSetting>
+		<h1>Browser Helper Objects(BHO)</h1>
+		<div class=cHelpInput>チェックをつけると、BHOが有効になります。 <span class="cCaption"><img src="sinfo.png"> BHOは、Internet Explorer用の拡張機能のため、有効にしても正常に動作しない場合があります。また、複数有効にすると速度が低下する場合があります。</span></div>
+		<div class="cSettingView cSmallBreak" id="idBHO"></div>
+	</div>
+	
+	<div id=scriptSetting class=cSetting>
+		<h1>スクリプト個別動作設定</h1>
+		<div class=cHelpInput>スクリプトで個別の動作設定が可能なとき、設定を行います。</div>
+		<div class=cSettingView id=idScriptSetting></div>
+	</div>
+	
+	<div id=pageScriptSetting class=cSetting>
+		<h1>ページスクリプトオプション</h1>
+		<form name=showPageScriptError>
+			<label><input type="checkbox" name=v>ページのScriptのエラー表示 - showPageScriptError</label><br>
+			<div class=cHelp>ページのスクリプト実行エラーで、エラー詳細を表示します。(標準設定:off)。</div>
+		</form>
+	</div>
+
+	<div id=tridentEtcSetting class=cSetting>
+		<h1>その他の設定</h1>
+		<form name=targetNameResolve>
+			<label><input type="checkbox" name=v>リンクのターゲット名を考慮 - targetNameResolve</label><br>
+			<div class=cHelp>リンクのtargetで指定されたフレームでリンク先を開きます(標準設定:on)。</div>
+			<div class=cHelp>offにした場合、ページによってはログインページなどで正常に動作しません。その場合は自己責任となります。</div>
+		</form>
+		<form name=tridentTheme>
+			<label><input type="checkbox" name=v>Theme表示の有効 - tridentTheme</label><br>
+			<div class=cHelp>TridentでボタンなどのTheme表示を有効にします(標準設定:on)。</div>
+		</form>
+		<form name=autoComplete>
+			<label><input type="checkbox" name=v>オートコンプリート - autoComplete</label><br>
+			<div class=cHelp>Tridentでフォームのオートコンプリートを有効にします(標準設定:on)。</div>
+		</form>
+		<form name=dpiAware>
+			<label><input type="checkbox" name=v><img src="ie8.png">8 or later: 高DPI設定 - dpiAware</label><br>
+			<div class=cHelp>Tridentで高DPI設定を有効にします(標準設定:on)。</div>
+		</form>
+		<form name=fixActiveX>
+			<label><input type="checkbox" name=v><img src="ie10.png">10 or later: ActiveX読み込み問題対応を有効にする - fixActiveX</label><br>
+			<div class=cHelp>ActiveXで読み込み後実行されない問題の対応を有効にします(標準設定:on)。Internet Explorer 10以降でのみ機能します。変更した場合、次回起動時から有効です。</div>
+		</form>
+		<form name=wheelPaste>
+			<label><input type="checkbox" name=v>ホイール ペーストを有効にする - wheelPaste</label><br>
+			<div class=cHelp>フォーム上のホイールクリックで貼り付け動作を有効にします(標準設定:off)。有効な場合、フォーム上でホイールクリックすると、フォームにテキストを貼り付けます。</div>
+		</form>
+		<form name=confirmCursorBrowse>
+			<label><input type="checkbox" name=v>カーソル ブラウズ時に確認メッセージを表示する - ConfirmCursorBrowse</label><br>
+			<div class=cHelp>カーソル ブラウズを有効にする際確認を行います(標準設定:on)。</div>
+		</form>
+	</div>
+	
+	<div id=urlActionSetting class="cSetting">
+		<h1 class="cSettingIcon">URLアクション</h1>
+		<div class="cHelpInput cSmallBreak cSubSection">読み込み前のアクション一覧</div>
+		<div class="cList">
+			<div class="cUrlAction">
+			<div class=cAdd>: <form class=cInline name=idUrlActionBeforeInput><input 
+					class="cInline cUrlActionInput cMod cCueBanner" 
+					contentId=idUrlActionBefore value="URLのパターンを入力" name=v></form><form 
+				class="cDummy cInline" name=idUrlActionBeforeCmd><select 
+					class="cUrlActionCmd cInline cMod" name=v onchange="changeUrlActionCmd(this);"><option 
+					value=none selected>なし</option></select></form>
+			<button id=idAppUrlActionBeforeAdd disabled contentId=idUrlActionBefore 
+				class="cUrlActionAdd"><span>アクション追加</span></button></div></div>
+			<div class=cHelpInput>現在の設定: </div>
+			<div class=cUrlAction id=idUrlActionBefore>なし</div>
+		</div>
+		
+		<div class="cHelpInput cSmallBreak cSubSection">読み込み後のアクション一覧</div>
+		<div class="cList">
+		<div class="cUrlAction">
+			<div class=cAdd>: <form class=cInline name=idUrlActionCompleteInput><input 
+					class="cInline cUrlActionInput cCueBanner" 
+					contentId=idUrlActionComplete value="URLのパターンを入力" name=v></form><form 
+				class="cDummy cInline" name=idUrlActionCompleteCmd><select 
+					class="cUrlActionCmd cInline cMod" name=v onchange="changeUrlActionCmd(this);"><option 
+					value=none selected>なし</option></select></form>
+			<button id=idAppUrlActionCompleteAdd disabled contentId=idUrlActionComplete 
+				class="cUrlActionAdd"><span>アクション追加</span></button></div></div>
+			<div class=cHelpInput>現在の設定: </div>
+			<div class=cUrlAction id=idUrlActionComplete>なし</div>
+		</div>
+		
+		<form name=urlAction class=cSmallBreak>
+			<label><input type="checkbox" name=v>URLアクション - urlAction</label><br>
+			<div class=cHelpInput>URLアクションを有効にします(標準設定:on)。</div>
+			<div class="cHelpInput cSmallBreak">URLアクションが有効の場合、ページ読み込み前と読み込み後に、URLに一致した処理が実行されます。URLのパターンはワイルドカード(*,?)が使用できます。</div>
+			<div class="cHelpInput cSmallBreak">実行される処理にはスクリプトも指定できます。たとえば、ページ読み込み後にログイン情報を設定するスクリプトを自作/設定すれば、自動ログインが可能となります。</div>
+			<div class="cHelpInput cSmallBreak">URLアクションでのセキュリティの変更は、ヒットしたページにのみ有効です。URLアクションでセキュリティの変更したページから元のページに戻ると、元のページのセキュリティが復元されます。</div>
+		</form>
+		
+		<form name=subFrameUrlAction class=cSmallBreak>
+			<label><input type="checkbox" name=v>サブフレームURLアクション - subFrameUrlAction</label><br>
+			<div class=cHelpInput>サブフレームについてもURLアクションを有効にします(標準設定:off)。onでURLアクションが有効の場合、サブフレームに対してもURLアクション判定が行われます。サブフレームでスクリプト実行は、現在無効です。この設定は、サブフレームに対しナビゲートキャンセルしたいときのみ有効です。</div>
+		</form>
+	</div>
+
+	<div id=styleSheetSetting class="cSetting">
+		<h1 class="cSettingIcon">スタイルシート設定</h1>
+		<div class="cHelpInput cSmallBreak cSubSection">サイト毎の設定一覧</div>
+		<div class="cList">
+			<div class="cUrlAction">
+			<div class=cAdd>: <form class=cInline name=idStyleSheetInput><input 
+					class="cInline cUrlActionInput cMod cCueBanner" 
+					contentId=idStyleSheet value="URLのパターンを入力" name=v></form><form 
+				class="cDummy cInline" name=idStyleSheetCmd><select 
+					class="cUrlActionCmd cInline cMod" name=v onchange="changeUrlActionCmd(this);"><option 
+					value="css:default" selected>デフォルトのスタイルシート</option></select></form>
+			<button id=idAppStyleSheetAdd disabled contentId=idStyleSheet 
+				class="cUrlActionAdd"><span>アクション追加</span></button></div></div>
+			<div class=cHelpInput>現在の設定: </div>
+			<div class=cUrlAction id=idStyleSheet>なし</div>
+		</div>
+		<div class="cHelpInput cSmallBreak">URLのパターンに一致したスタイルシートが適用されます。上から順にマッチングしていき、１つのパターンに一致すると、それ以降のパターンはマッチングされません。URLのパターンはワイルドカード(*,?)が使用できます。</div>
+		<div class="cHelpInput cSmallBreak">ユーザ定義のスタイルシートは、setting\userStyleSheet配下に置いてください。setting\userStyleSheet配下に置いた拡張子cssファイルが、項目として選択できるようになります。</div>
+	</div>
+
+	<div id=hiliteSetting class=cSetting>
+		<h1>ハイライト</h1>
+		<form name=autoHilite>
+			<label><input type="checkbox" name=v>オートハイライト - autoHilite</label><br>
+			<div class=cHelp>検索キーワードを自動的にハイライトします(標準設定:on)。</div>
+		</form>
+		<form name=inheritHilite>
+			<label><input type="checkbox" name=v>ハイライトの継承 - inheritHilite</label><br>
+			<div class=cHelp>新しいタブを開くとき、開く元タブのハイライトを継続します(標準設定:on)。</div>
+		</form>
+	</div>
+
+	<div id=frameAdditionalButtonSetting class=cSetting>
+		<h1>フレームへの追加ボタン<span> - frameAdditionalButton</span></h1>
+		<form name=frameAdditionalButton>
+			<label><input type="checkbox" name=v>フレームに追加ボタンを表示する - frameAdditionalButton</label><br>
+			<div class=cHelp>フレームに追加ボタンを表示します(標準設定:on)。追加ボタン表示は、Aeroテーマが有効になっている必要があります。</div>
+		</form>
+	</div>
+
+	<div id=toolbarSetting class=cSetting>
+		<h1>使用中のツールバー設定<span> - toolbarSetting</span></h1>
+		<div class=cHelpInput>「詳細設定」から、各ツールバーの動作設定を行なえます。ツールバー設定は、「適用ボタン」を押さなくても反映されます。ブックマークのツールバー削除できません。ブックマークのツールバーを削除するときは、「ブックマークの設定」から行えます。</div>
+		<div id=toolbarView class=cSettingView></div>
+		<form name=lockToolbar>
+			<label><input type="checkbox" name=v onclick="doLockToolbar();">ツールバーのロック - lockToolbar</label><br>
+			<div class=cHelp>ツールバーを現在の位置で固定します(標準設定:off)。</div>
+		</form>
+	</div>
+
+	<div id=addToolbarSetting class=cSetting>
+		<h1>ツールバーの追加<span> - addToolbar</span></h1>
+		<div class=cHelpInput>「ツールバー追加」から行なってください。同じツールバーでも複数追加可能です。</div>
+		<table vspace=0px hspace=0px border=0 cellpadding=0 cellspacing=0 class="cSettingView cSmallBreak">
+			<tr>
+				<td width=120px><b class=cToolbar style="background-image:url(toolbar.png);">検索バー</b></td>
+				<td><button style="width=11em" onclick="addToolbar('{FF60F13F-C194-45e4-B3DD-68BD493EA8FF}');"><img src="+.png">&nbsp;ツールバー追加...</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class=cHelpInput style="padding-left:3px;">インターネットをさまざまな検索エンジンで検索できるツールバーです。</div><td>
+			</tr>
+			
+			<tr>
+				<td width=120px><b class=cToolbar style="background-image:url(toolbar.png);">標準ツールバー</b></td>
+				<td><button style="width=11em;" onclick="addToolbar('{D3FF48F8-8CAE-41ed-B3CA-A048D3DD4BF0}');"><img src="+.png">&nbsp;ツールバー追加...</button></td>
+			</tr>
+			<tr>
+				<td colspan=2><div class=cHelpInput style="padding-left:3px;">標準コマンドやスクリプトのボタンを持つツールバーです。</div><td>
+			</tr>
+		</table>
+	</div>
+
+	<div id=hilitePosSetting class=cSetting>
+		<h1>ハイライトバーの位置</h1>
+		<form name=hilitePos>
+			<label><input type=radio name=v defaultChecked value=0>上に表示する - hilitePosTop</label><br>
+			<div class=cHelp>ハイライトバーを上に表示します(標準設定)。</div>
+			<label><input type=radio name=v value=1>下に表示する - hilitePosBottom</label><br>
+			<div class=cHelp>ハイライトバーを下に表示します。</div>
+		</form>
+	</div>
+
+	<div id=isearchPosSetting class=cSetting>
+		<h1>インライン検索バーの位置</h1>
+		<form name=isearchPos>
+			<label><input type=radio name=v defaultChecked value=0>上に表示する - isearchPosTop</label><br>
+			<div class=cHelp>インライン検索バーを上に表示します。</div>
+			<label><input type=radio name=v value=1>下に表示する - isearchPosBottom</label><br>
+			<div class=cHelp>インライン検索バーを下に表示します(標準設定)。</div>
+		</form>
+	</div>
+
+	<div id=accelSetting class=cSetting>
+		<h1>ショートカットキー</h1>
+		<div class=cHelpInput>
+		<button style="width:10em;" onclick="setDefaultAccel();"><img src=arrow_return.png> 標準設定に戻す</button><br>
+		ショートカットキーを標準設定に戻します。</div>
+		<form name=singlekeyShortcut>
+			<label><input type="checkbox" name=v>シングルキーショートカット - singlekeyShortcut</label><br>
+			<div class=cHelp>Control,Shiftキーを伴わない単一キーでのショートカットキーを有効にします(標準設定:off)。有効の場合でフォームにフォーカスがある場合は、フォームへの入力が優先されます。無効にした場合、単一キーショートカットは無視されます。</div>
+		</form>
+		<br>
+		<div class="cHelpInput cSmallBreak">ショートカットキーの追加：<span 
+				id=idAppAccelNg class="cNgText cHide"> 追加できません(同じショートカットキーが存在)</span></div>
+		<div class=cAccel>
+		<div>: <form name=idAppAccelInput><input class="cAccelInput cCueBanner"
+			contentId=idAppAccel value="ショートカットキーを入力" name=v></form><form 
+			name=idAppAccelCmd class=cDummy><select class=cSelectCmd name=v 
+			onchange="changeAccelCmd(this);"><option value=none selected>なし</option></select></form>
+		<button id=idAppAccelAdd title="ショートカットキーを追加" disabled contentId=idAppAccel class=cAccelAdd><span> 追加</span></button>
+		</div></div>
+		<div class=cHelpInput>現在のショートカットキー: </div>
+		<div class=cAccel id=idAppAccel></div>
+	</div>
+	
+	<div id=searchEngineSetting class=cSetting>
+		<h1>使用できる検索エンジン一覧</h1>
+		<div id=searchView class=cSettingView></div>
+		<span style="width=18px"></span><a href="javascript:void(0)" class="cIcon cSearchAdd">検索エンジンを入手する</a>
+		<div class=cHelp>オプション画面を閉じ、検索エンジン追加のページを開きます。</div>
+	</div>
+
+	<div id=maxSearchHistorySetting class=cSetting>
+		<h1>検索履歴保存数</span></h1>
+		<form name=maxSearchHistory>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> 個まで検索履歴を保存する。- maxSearchHistory</label>
+		</form>
+		<form name=maxIncHistory>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> 個までインクリメンタル検索履歴を保存する。- maxIncHistory</label>
+		</form>
+	</div>
+
+	<div id=faviconCacheSetting class=cSetting>
+		<h1>Faviconキャッシュ</span></h1>
+		<form name=faviconLimitCount>
+			<label><input type="text" name=v maxlength=6 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> 個以上で、古いFavicon削除 - faviconLimitCount</label>
+			<div class=cHelpInput>Faviconキャッシュで、上の設定数以上となったとき、faviconDeletePercentの数だけ、キャッシュを削除します。</div>
+		</form>
+		<form name=faviconDeletePercent>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> %の古いFaviconを削除 - faviconDeletePercent</label>
+			<div class=cHelpInput>Faviconキャッシュで、古いキャッシュを削除するときの割合です。4000個以上、25%削除する設定の場合、1000個の古いFaviconキャッシュが削除されます。</div>
+		</form>
+	</div>
+
+	<div id=thumbnailCacheSetting class=cSetting>
+		<h1>サムネイルキャッシュ</span></h1>
+		<form name=thumbnailLimitCount>
+			<label><input type="text" name=v maxlength=6 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> 個以上で、古いサムネイル削除 - thumbnailLimitCount</label>
+			<div class=cHelpInput>サムネイルキャッシュで、上の設定数を超えたとき、thumbnailDeletePercentの数だけ、キャッシュを削除します。</div>
+		</form>
+		<form name=thumbnailDeletePercent>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);"> %の古いサムネイルを削除 - thumbnailDeletePercent</label>
+			<div class=cHelpInput>サムネイルキャッシュで、古いキャッシュを削除するときの割合です。4000個以上、25%削除する設定の場合、1000個の古いサムネイルキャッシュが削除されます。</div>
+		</form>
+	</div>
+	
+	<div id=activeScriptSetting class=cSetting>
+		<h1>Activeスクリプトオプション</h1>
+		<form name=showActiveScriptError>
+			<label><input type="checkbox" name=v>Active Scriptのエラー表示 - showActiveScriptError</label><br>
+			<div class=cHelp>Active Script(ユーザ定義スクリプトや既定のスクリプト)の実行エラーで、エラー詳細を表示します(標準設定:on)。</div>
+		</form>
+	</div>
+	
+	<div id=scriptVersionSetting class=cSetting>
+		<h1>Activeスクリプトバージョン</h1>
+		<form name=scriptInvokerVersion>
+			<div class=cHelp>Active Scriptの実行バージョンを指定します。</div>
+			<label><input type=radio name=v defaultChecked value=0>最新のJScript</label><br>
+			<div class=cHelp>環境に応じた最新のJScriptで実行します(標準設定)。IE9以降であればJScript9で実行し、それ以外はJScript5.8で実行します。</div>
+			<label><input type=radio name=v value=2>JScript5.8</label><br>
+			<div class=cHelp>JScript5.8で実行します。実行できない場合、JScript5.7で実行します。</div>
+			<label><input type=radio name=v value=3>JScript9</label><br>
+			<div class=cHelp>JScript9(ECMAScript 5thサポート)で実行します。IE9以降で有効になります。実行できない場合、JScript5.8で実行します。</div>
+		</form>
+	</div>
+	
+	<div id=sidebarEdgeSizeSetting class=cSetting>
+		<h1>サイドバーエッジサイズ</h1>
+		<form name=sidebarEdgeSize>
+			<label><input type="text" name=v maxlength=3 class=cNumber style="width:50px;" onKeydown="return inputNum(event.keyCode);">px サイドバーエッジサイズ - sidebarEdgeSize</label>
+			<div class=cHelpInput>サイドバーエッジサイズを指定します(既定値:0,有効値0-20)。0を指定すると、システムの既定値になります。</div>
+		</form>
+	</div>
+
+	<div id=EBPlusSetting class=cSetting>
+		<h1>ExplorerBarPlus動作設定</h1>
+		<form name=EBPlusTabMode>
+			<label><input type="checkbox" name=v>タブブラウザモードで動作させる - EBPlusTabMode</label><br>
+			<div class=cHelp>拙作のInternet Explorer拡張機能、ExplorerBarPlusをタブブラウザモードで動作させます(標準設定:on)。変更した場合、次回起動時から有効です。</div>
+			<br>
+			<div class=cHelp>タブブラウザモードで動作させると、メニューにタブで開く項目が追加される、中央ボタンクリックで新規タブで開くなど出来るようになります。ただし一部のパネル(リンク抽出パネルなど)で、自動的に更新する機能は無効となります。</div>
+		</form>
+	</div>
+
+	<div id=testFeatureSetting class=cSetting>
+		<h1>試験機能</h1>
+		<form name=testFeature>
+			<label><input type="checkbox" name=v>試験機能を使用する - testFeature</label><br>
+			<div class=cHelp>試験的な機能を有効にします(標準設定:off)。変更した場合、次回起動時から有効です。</div>
+			<br>
+			<div class=cHelp>有効にすると、次の機能が有効になります。
+			<li>Internet Background Connections<br>
+			<li>Windows10 での ALT+TAB 動作修正<br>
+			</div>
+		</form>
+	</div>
+</div>
+</td></tr>
+
+<tr style="height:1px"><td class="cMenuBk"></td><td colspan="2" class="cLine"></td></tr>
+<tr style="height:3em"><td class="cMenuBk"></td><td class="cLine"></td><td align="right" valign="middle">
+<button style="height:2em;width:8em;color:#000;" onclick="optionApply();"><img class="cPng" src=tick.png> OK</button>&nbsp;
+<button style="height:2em;width:8em;color:#000;" onclick="optionClose();"><img class="cPng" src=cross.png> キャンセル</button>&nbsp;
+</td></tr>
+</table>
+
+
+</body>
+</html>

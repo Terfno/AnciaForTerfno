@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>タブリスト ブックマーク設定</title>
+<link rel="stylesheet" type="text/css" href="../std.css">
+<link rel="stylesheet" type="text/css" href="./option.css">
+<script type="text/javascript">
+function parseJson(data){
+	return (window.JSON ? window.JSON.parse(data):(new Function("return "+data))());
+}
+var g_ext=external;
+function init(){
+	var	setting=parseJson(g_ext.setting);
+	document.name.v.value=setting.name;
+	document.all["cancelBtn"].focus();
+}
+function apply(){
+	var	ar=[];
+	ar.push('{"name":"'+document.name.v.value+'"}');
+	g_ext.setting=ar.join(",");
+	doClose(0);
+}
+function doClose(ret){
+	g_ext.close(ret);
+}
+</script>
+</head>
+<body onload="init()" scroll=no>
+<table vspace="0px" hspace="0px" cellpadding="0" cellspacing="0" cols="1">
+<tr valign="top"><td>
+	<!-- summary -->
+	<div class="cSummary cSetting">
+	<img src="icon32.png"><span class="cTitle">タブリスト ブックマーク</span><br>タブリストの内容をサイドバー、ツールバーに表示します。
+	<br style="clear: both;">
+	</div>
+	
+	<!-- name setting -->
+	<div id="nameSetting" class="cSetting">
+	<h1>ブックマークの名前</h1>
+	ブックマークの名前を指定します。
+	<form name="name">
+	<label><input class="cInputText" type="text" name="v"> - name</label>
+	</form>
+	</div>
+</td></tr>
+<tr class="cLine"><td></td></tr>
+<tr class="cFooter" align="right" valign="middle"><td>
+	<button style="height:2em;width=5em;" onclick="apply();"><img src=../option/tick.png> OK</button>&nbsp;
+	<button id="cancelBtn" style="height:2em;width=7em;" onclick="doClose(1);"><img src=../option/cross.png> キャンセル</button>&nbsp;
+</td></tr>
+</table>
+</body>
+</html>

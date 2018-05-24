@@ -1,0 +1,489 @@
+.cPng{}
+html,body{
+	height:100%;
+}
+body {
+	font-size: 12px;
+	background-color: #FFFFFF;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px; 
+}
+img {
+	border:none;
+	vertical-align:middle;
+}
+form {
+	padding:0px 0px 0p 0px;
+	margin:0px 0px 0px 0px;
+}
+label{
+	font-size:12px;
+	margin:0px 0px 0px 15px;
+	color:blue;
+}
+.cHead {
+	background-color: white;
+}
+.cLine {
+	background-color: #B6BCC6;
+}
+.cCategories {
+}
+.cMenuBk{
+	background-color: #FFFFFF;
+}
+#idCategories a {
+	font-size:12px;
+	padding:2px 2px 2px 2px;
+	margin:1px 2px 1px 2px;
+	display: block;
+	text-decoration: none;
+	color: #575757;
+	cursor:default;
+}
+#idCategories a img {
+	vertical-align:middle;
+}
+#idCategories a span {
+	padding-left:3px;
+}
+#idCategories a:hover {
+	background-color:#9999FF;
+	color: #FFFFFF;
+}
+#idCategories a:hover.cSelected,
+#idCategories .cSelected {
+	color: #FFFFFF;
+	background-color:#6699FF;
+}
+#idCategories .cUnhover{
+	background-color:#9999FF;
+}
+#idCategories .cUnhover2{
+	background-color:#CCCCFF;
+}
+#view {
+	overflow-y:scroll;
+	height:100%;
+}
+.cNgText{
+	color:red;
+}
+.cHide{
+	display:none;
+}
+.cHideBlock{
+	display:none;
+}
+.cAccelAdd, .cAccelDel, .cAccelDelCancel,.cUrlActionAdd{
+	height:22px;
+}
+.cUrlActionUp,.cUrlActionDown{
+	height:22px;
+	width:22px;
+}
+.cAccelAdd span{
+	width:3.5em;
+	background:url(+.png) no-repeat top left;
+	padding-left:16px;
+	color:blue;
+	line-height:16px;
+}
+.cUrlActionAdd{
+	width:9em;
+}
+.cUrlActionAdd span{
+	width:8em;
+	background:url(+.png) no-repeat top left;
+	padding-left:16px;
+	color:blue;
+	line-height:16px;
+}
+.cProxyAdd,.cProxyDel,.cProxyDelCancel{
+	width:7em;
+}
+.cProxyAdd span{
+	width:6em;
+	background:url(+.png) no-repeat top left;
+	padding-left:16px;
+	color:blue;
+	line-height:16px;
+}
+.cAccelDel span,.cUrlActionDel span,.cProxyDel span{
+	width:3.5em;
+	background:url(-.png) no-repeat center left;
+	padding-left:18px;
+	line-height:16px;
+}
+.cProxyDel span{
+	width:6em;
+	background:url(-.png) no-repeat center left;
+	padding-left:18px;
+	line-height:16px;
+}
+.cProxyDelCancel span{
+	width:6em;
+	background:url(arrow_return.png) no-repeat center left;
+	padding-left:16px;
+	line-height:16px;
+}
+.cAccelDelCancel span,.cUrlActionDelCancel span{
+	width:3.5em;
+	background:url(arrow_return.png) no-repeat center left;
+	padding-left:16px;
+	line-height:16px;
+}
+.cUrlActionUp span{
+	width:16px;
+	height:16px;
+	background:url(arrow_up.png) no-repeat top left;
+	line-height:16px;
+}
+.cUrlActionDown span{
+	width:16px;
+	height:16px;
+	background:url(arrow_down.png) no-repeat top left;
+	line-height:16px;
+}
+.cAccelHead,.cAccel,.cUrlAction,.cProxy{
+	padding:3px 0px 3px 18px;
+}
+.cAccelHead div{
+	padding:0px 0px 0px 16px;
+	color:blue;
+	background:url(acceledit.png) no-repeat center left;
+}
+.cAccel div{
+	padding:0px 0px 0px 16px;
+	color:blue;
+	background:url(accel.png) no-repeat center left;
+}
+.cUrlAction div{
+	padding:0px 0px 0px 16px;
+	color:blue;
+	background:url(urlaction.png) no-repeat center left;
+}
+.cProxy div{
+	padding:0px 0px 0px 20px;
+	color:blue;
+	background:url(proxy.png) no-repeat 4px left;
+}
+.cAccel div.cAdd,.cUrlAction div.cAdd,.cProxy div.cAdd{
+	background-image:url(+.png);
+}
+.cAccel form,.cInline{
+	display:inline;
+}
+.cAccelNg{
+	color:red;
+}
+.cAccelInput{
+	height:22px;
+	text-align:center;
+	width:40%;
+	ime-mode:disabled;
+}
+.cUrlActionInput{
+	height:22px;
+	text-align:left;
+	width:30%;
+	ime-mode:disabled;
+}
+.cProxyNameInput{
+	height:22px;
+	text-align:left;
+	width:25%;
+}
+span.cProxyBypass{
+	height:22px;
+	text-align:right;
+	width:25%;
+	vertical-align:middle;
+}
+.cProxyServerInput{
+	height:22px;
+	text-align:left;
+	width:55%;
+	ime-mode:disabled;
+}
+.cProxyBypassInput{
+	height:22px;
+	text-align:left;
+	width:55%;
+	ime-mode:disabled;
+}
+
+.cMod{
+	color:blue;
+}
+.cCueBanner{
+	color:#808080;
+	text-align:center;
+}
+form select.cUrlActionCmd{
+	height:22px;
+	width:38%;
+}
+form select.cSelectCmd{
+	height:22px;
+	width:35%;
+}
+form.cHide select.cSelectCmd{
+	display:none;
+}
+select.cProxySelect{
+	width:45%;
+}
+.cSetting {
+	display:none;
+	margin:0px 0px 8px 0px;
+}
+h1 {
+	margin:10px 10px 3px 15px;
+	font-size:14px;
+	color:#333333;
+	border-bottom:1px solid #999999;
+	background:url("./setting.png") no-repeat center left;
+	padding:3px 0em 0px 20px;
+}
+#needKw h1,#notFound h1{
+	color:#333333;
+	border:1px solid #B6BCC6/*#5c5c5c*/;
+	margin-left:40px;
+	margin-right:40px;
+	padding:3px 3px 3px 1px;
+	background-color:#FFFFE1;
+	background-image:url();
+}
+#needKw h1 img,#notFound h1 img{
+	margin-right:3px;
+}
+#startSetting			h1{background-image:url(startSetting.png);}
+#appStyleSetting		h1{background-image:url(appStyleSetting.png);}
+#loadingStyleSetting	h1{background-image:url(loadingStyleSetting.png);}
+#homeSetting			h1{background-image:url(homeSetting.png);}
+#regSetting				h1{background-image:url(reg.png);}
+#assocSetting			h1{background-image:url(assocSetting.png);}
+#viewStyleSetting		h1{background-image:url(viewStyleSetting.png);}
+#instanceSetting		h1{background-image:url(instanceSetting.png);}
+#pageSetting			h1{background-image:url(pageSetting.png);}
+#imagePanningSetting	h1{background-image:url(imagePanningSetting.png);}
+#jumpListSetting		h1{background-image:url(jumpListSetting.png);}
+#renderingSetting		h1{background-image:url(renderingSetting.png);}
+#confirmSetting			h1{background-image:url(confirmSetting.png);}
+#connectionsSetting		h1{background-image:url(connectionsSetting.png);}
+#featureSetting			h1{background-image:url(featureSetting.png);}
+#newUrlSetting			h1{background-image:url(newUrlSetting.png);}
+#userAgentSetting		h1{background-image:url(userAgentSetting.png);}
+#BHOSetting				h1{background-image:url(BHOSetting.png);}
+#securitySetting		h1{background-image:url(securitySetting.png);}
+#securityControlSetting	h1{background-image:url(securityControlSetting.png);}
+#memorySetting			h1{background-image:url(memorySetting.png);}
+#crashSetting			h1{background-image:url(crashSetting.png);}
+#bookmarkSetting		h1{background-image:url(bookmark.png);}
+#addBookmarkSetting		h1{background-image:url(bookmark+.png);}
+#toolSetting			h1{background-image:url(tool.png);}
+#addToolSetting			h1{background-image:url(tool+.png);}
+#dropActionSetting		h1{background-image:url(dropActionSetting.png);}
+#superDragDropSetting	h1{background-image:url(superDragDropSetting.png);}
+#mouseGestureSetting	h1{background-image:url(mouseGestureSetting.png);}
+#mousePlusSetting		h1{background-image:url(mousePlusSetting.png);}
+#actionXButtonSetting	h1{background-image:url(actionXButtonSetting.png);}
+#toolbarSetting			h1{background-image:url(toolbar.png);}
+#addToolbarSetting		h1{background-image:url(toolbar+.png);}
+#proxySetting			h1{background-image:url(proxySetting.png);}
+#accelSetting			h1{background-image:url(accel.png);}
+#searchEngineSetting	h1{background-image:url(search.png);}
+#lastTabCmdSetting		h1{background-image:url(lastTabCmdSetting.png);}
+#faviconCacheSetting	h1{background-image:url(cache.png);}
+#thumbnailCacheSetting	h1{background-image:url(cache.png);}
+#hiliteSetting			h1{background-image:url(hiliteSetting.png);}
+#urlActionSetting		h1{background-image:url(urlActionSetting.png);}
+#styleSheetSetting		h1{background-image:url(styleSheet.png);}
+#EBPlusSetting			h1{background-image:url(EBPlusSetting.png);}
+#testFeatureSetting		h1{background-image:url(testFeature.png);}
+#SSLSetting				h1{background-image:url(SSLSetting.png);}
+#freezeCheckSetting				h1{background-image:url(freezeCheckSetting.png);}
+
+h1 span,.cSettingName{
+	font-size: 13px;
+	color: blue;
+	font-weight:normal;
+}
+button{
+	font-size:12px;
+	margin:0px 0px 0px 0px;
+	color:#333333;
+}
+.cHelp {
+	font-size: 12px;
+	color: #575757;
+	margin:0px 5px 0px 36px;
+}
+.cHelpInput {
+	font-size: 12px;
+	color: #575757;
+	margin:0px 5px 0px 15px;
+}
+.cHelpBookmark {
+	font-size: 12px;
+	color: #575757;
+}
+.cList {
+	font-size: 12px;
+	color: #575757;
+	margin:0px 0px 0px 7px;
+}
+.cSmallBreak {
+	margin-top:8px;
+}
+.cSmallBottomMargin {
+	margin-bottom:8px;
+}
+input {
+	height:20px;
+}
+input.cNumber {
+	text-align:right;
+	ime-mode:disabled;
+}
+.cToolbar {
+	padding:6px 0px 3px 18px;
+	margin:2px 2px 2px 0px;
+	color:blue;
+	height:8px;
+	font-size: 12px;
+	background:url(toolbar.png) no-repeat center left;
+}
+.cComponent32{
+	padding:6px 0px 3px 40px;
+	margin:2px 2px 2px 0px;
+	color:blue;
+	height:32px;
+	font-size: 12px;
+	background:url(component32.png) no-repeat center left;
+}
+.cBookmark32{
+	background:url(bookmark32.png) no-repeat center left;
+}
+.cTool32{
+	background-image:url(./tool32.png);
+}
+.cComOption span{
+	background:url(property.png) no-repeat bottom left;
+	padding-left:18px;
+	line-height:16px;
+}
+.cComDel span{
+	background:url(-.png) no-repeat bottom left;
+	padding-left:18px;
+	line-height:16px;
+}
+.cSettingView {
+	padding:0px 0px 0px 18px;
+}
+.cIcon {
+	background:url("") no-repeat center left;
+	padding:3px 0px 3px 18px;
+}
+a:hover.cIcon, a:visited.cIcon {
+	color:blue;
+}
+button.cSetDefault{
+	width:10em;
+}
+button.cSetDefault span{
+	background:url(arrow_return.png) no-repeat bottom left;
+	margin-left:4px;
+	padding-left:20px;
+	padding-top:2px;
+}
+button.cSearchDel, button.cSearchDelCancel{
+	font-size:12px;
+	margin:0px 0px 0px 0px;
+	width:6em;
+	height:22px;
+}
+.cSearchDel span{
+	background:url(-.png) no-repeat bottom left;
+	margin-left:4px;
+	padding-left:20px;
+	padding-top:2px;
+}
+.cSearchDelCancel span{
+	background:url(arrow_return.png) no-repeat bottom left;
+	margin-left:4px;
+	padding-left:20px;
+	padding-top:2px;
+}
+.cSearch {
+	padding:0px 0px 3px 2px;
+	margin:0px 2px 2px 4px;
+	color:blue;
+	font-size:12px;
+}
+.cSearchAdd {
+	background:url(+.png) no-repeat bottom left;
+}
+#idBHO li{
+	list-style-image:url(bho.png);
+}
+#idBHO li span{
+	width:20em;
+	/*overflow:visible;*/
+	word-break:break-all;
+	/*white-space:nowrap;*/
+	margin-left:4px;
+	color:Blue;
+}
+#idScriptSetting li{
+	list-style-type:none;
+	list-style-image:url(script.png);
+}
+#idScriptSetting li span{
+	width:26em;
+	/*overflow:hidden;*/
+	word-break:break-all;
+	/*white-space:nowrap;*/
+	text-overflow:ellipsis;
+	margin-left:4px;
+	color:Blue;
+}
+#idCurrentStyle, #idCurrentLoadingStyle, #currentViewStyle{
+	color:blue;
+	font-weight:bold;
+}
+#idIsAssoc span{
+	color:blue;
+	font-size:12px;	font-weight:bold;
+	padding-left:2px;
+}
+#idIsNoAssoc span{
+	color:#333333;
+	font-size:12px;	font-weight:bold;
+	padding-left:2px;
+}
+#idNoProxyCaption span{
+	color:#333333;
+	font-size:12px;	font-weight:bold;
+	padding-left:2px;
+}
+.cCaption{
+	color:blue;
+}
+.cSubSection{
+	color:#333333;
+	font-weight:bold;
+}
+.cDropCmd{
+	width:280px;
+}
+.cDropCmd form{
+	display:inline;
+}
+.cDropCmd form label{
+	margin:0px 0px 0px 0px;
+}
+.cDropCmd form select{
+	width:160px;
+}

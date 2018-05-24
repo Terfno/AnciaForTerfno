@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<ShortName>楽天商品検索</ShortName>
+	<Description>楽天商品検索</Description>
+	<Url type="text/html" template="http://pt.afl.rakuten.co.jp/c/0ad5de77.2897b027/?sv=2&amp;p=0&amp;sitem={searchTerms}"/>
+	<InputEncoding>EUC-JP</InputEncoding>
+	<Image>http://www.rakuten.co.jp/favicon.ico</Image>
+</OpenSearchDescription>

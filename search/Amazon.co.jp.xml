@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<ShortName>Amazon.co.jp</ShortName>
+	<Url type="text/html" template="http://www.amazon.co.jp/gp/search?ie=UTF8&amp;keywords={searchTerms}&amp;tag=ancia-22&amp;index=blended&amp;linkCode=ur2&amp;camp=247&amp;creative=1211"/>
+	<Image height="16" width="16" type="image/x-icon">http://www.amazon.co.jp/favicon.ico</Image>
+	<Url type="application/x-suggestions+json" template="http://completion.amazon.co.jp/search/complete?&amp;method=completion&amp;search-alias=aps&amp;client=amazon-search-ui&amp;mkt=6&amp;q={searchTerms}"/>
+</OpenSearchDescription>

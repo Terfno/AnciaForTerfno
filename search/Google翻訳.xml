@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<ShortName>Google翻訳</ShortName>
+	<Description>Google翻訳</Description>
+	<Url type="text/html" template="http://translate.google.co.jp/?text={searchTerms}&amp;hl=ja&amp;langpair=auto|ja&amp;tbb=1&amp;ie=utf-8"/>
+	<Image>http://translate.google.co.jp/favicon.ico</Image>
+</OpenSearchDescription>

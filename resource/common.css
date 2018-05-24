@@ -1,0 +1,6 @@
+body,button,input,form,select{
+ font-family: 'Meiryo UI','ＭＳ Ｐゴシック';
+}
+button,input,form,select{
+ font-size: 12px;
+}
